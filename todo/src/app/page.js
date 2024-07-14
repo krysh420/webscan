@@ -1,5 +1,5 @@
 
-import getTodos from "../../lib/getTodos";
+import {getTodos} from "../../lib/getTodos";
 import Form from "./form";
 import Navbar from "./navbar";
 import Todos from "./todos";
