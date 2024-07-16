@@ -10,7 +10,7 @@ import docker
 from datetime import datetime 
 
 # To extract links from logs
-import re 
+from re import findall 
 
 # Declare log name
 logName = 'LOG-'+str(datetime.now())+'.log' 
@@ -27,23 +27,29 @@ def initLog():
 # so to make it readable in terminal, decided to remove the extra parts 
 def readLog():
     global logName
+
     f = open(f'./logs/{logName}', 'r')
+    
     x = f.readlines()
     filter = ["INFO:root:"]
     filtered = ''
     for i in x:
         filtered = i.replace(filter[0], '')
         print(filtered)            
+    
     f.close()
 
 
 def extractLinks():
     global logName
+
     f = open('links.txt', 'w')
+
     with open(f'./logs/{logName}') as file:
         for line in file:
-            urls = re.findall('https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', line)
+            urls = findall('https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', line)
             f.write(str(urls)+'\n')
+    
     f.close()
 
 def main():
@@ -74,9 +80,8 @@ if __name__ == "__main__":
 # 4. Output contents of log excluding [INFO] and \n [DONE]
 # 5. Let the clean log be sent to JS for display [DONE]
 # 6. Help with OpenAI integration to explain the vulnerabilities 
-# 7. Extract links from Nikto logs 
-# 8. Error and Exception handling 
-# 9. Set the port of website hosted to something which do not interfere with other services 
-# 10. Ask user to give a part incase the default port is used already
-# 11. Add functionality to update the docker image
-# 12. Add support for podman
+# 7. Extract links from Nikto logs [DONE]
+# 8. Add support for podman
+# 9. Ask user to give a part incase the default port is used already
+# 10. Add functionality to update the docker image
+# 11. Error and Exception handling 
