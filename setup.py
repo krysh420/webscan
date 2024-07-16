@@ -5,11 +5,13 @@ import os
 from platform import system
 
 def setupReq():
+    global platform
     print("Checking platform....")
     platform = system()
     print("Detected OS: ", platform)
 
     print("Make sure that you have downloaded and installed Docker or Podman (NOTE: Docker/Podman Desktop is not required). Setup cannot proceed without it.")
+    global engine
     engine = input("Enter what did you install (Docker or Podman): ")
 
     while(True):
@@ -43,7 +45,8 @@ Retry the test.  """)
         elif engine.lower() == "podman":
             if "docker" in i:
                 continue
-        os.system(f"python -m pip install {i}")    
+        os.system(f"python -m pip install {i}")
+    installed = input("Did all packages installed successfully? (Yes/No): ")    
 
 
 
@@ -58,6 +61,9 @@ def updateImg():
 def updateFull():
     print("placeholdre")
 
+def configFile():
+    print("placeholdre")
+
 def disclaimer():
     print("placeholdre")
 
@@ -69,19 +75,27 @@ def main():
 4. Disclaimer
 5. Exit
            ''')
+    
     option = input("Enter your choice: ")
     if (option not in ('1','2','3','4','5')):
         option = int(input(("Enter a valid choice (1-5)")))
+    
     elif option == '1':
         setupReq()
+    
     elif option == '2':
         updateFull()
+    
     elif option == '3':
         updateImg()
+    
     elif option == '4':
         disclaimer()
+    
     elif option == '5':
         quit()
+
+    print(platform, engine)
     
 if __name__ == "__main__":
     print('Welcome to Webscan Setup and Utility Software')
