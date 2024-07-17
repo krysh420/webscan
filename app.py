@@ -15,10 +15,9 @@ from re import findall
 # Declare log name
 logName = 'LOG-'+str(datetime.now())+'.log' 
 
-# Initialise log file. This will overwrite the last log and make a new one. If you want that the previous log dont get deleted
-# then replace f = open('output.log', 'w') with  f = open('output.log', 'a'). This will generate new logs inside same file without overwrites.
+# Initialise log file.
 def initLog():
-    f = open(f'./logs/{logName}', 'w')
+    f = open(f'logs/{logName}', 'w')
     f.writelines('\nLOG '+str(datetime.now()))
     f.close()
 
@@ -28,7 +27,7 @@ def initLog():
 def readLog():
     global logName
 
-    f = open(f'./logs/{logName}', 'r')
+    f = open(f'logs/{logName}', 'r')
     
     x = f.readlines()
     filter = ["INFO:root:"]
@@ -45,7 +44,7 @@ def extractLinks():
 
     f = open('links.txt', 'w')
 
-    with open(f'./logs/{logName}') as file:
+    with open(f'logs/{logName}') as file:
         for line in file:
             urls = findall('https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', line)
             f.write(str(urls)+'\n')
@@ -61,7 +60,7 @@ def main():
     container = client.containers.run("kalilinux/kali-rolling", "apt update", detach=True)
     
     initLog()
-    logging.basicConfig(filename=f'./logs/{logName}',filemode='a', level=logging.INFO)    
+    logging.basicConfig(filename=f'logs/{logName}',filemode='a', level=logging.INFO)    
     
     for line in container.logs(stream=True):
         logging.info(line.strip().decode('utf-8')) # To have clean logs

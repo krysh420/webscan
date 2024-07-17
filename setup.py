@@ -1,10 +1,15 @@
 # For executing commands in terminal to setup things
 import os
 
-# For checking platform
+# For checking OS
 from platform import system
 
+# To timestamp last setup
+from datetime import datetime
+
 def setupReq():
+    global imgName 
+    imgName = "nikto-img"
     global platform
     print("Checking platform....")
     platform = system()
@@ -46,18 +51,34 @@ Retry the test.  """)
             if "docker" in i:
                 continue
         os.system(f"python -m pip install {i}")
-    installed = input("Did all packages installed successfully? (Yes/No): ")
     while True:
         installed = input("Did all packages installed successfully? (Yes/No): ")
         if installed.lower() == "yes":
-            print("Setup will now continue: ")
+            print("Setup will now continue...... ")
+            break
         elif installed.lower() == "no":
-            print("You can either retry using the setup or manually install packages by running 'pip install -r requirements.txt. Once installed, enter yes in the prompt. ")
+            print("You can either retry using the setup or manually install packages by running 'pip install -r requirements.txt. To quit the setup, enter 'quit' in the prompt. Once installed, enter yes in the prompt. ")
+        elif installed.lower() == "quit":
+            print("Setup will now terminate. You can rerun the setup once all packages are installed...")
+            quit()
         else:
-            print("Enter a valid option")
+            print("Enter a valid option.")
 
-
-
+    print("Building Docker image....")
+    while True:
+        os.system(f"{engine} build . -t {imgName}")
+        imgInstall = os.popen(f'{engine} run {imgName} echo "Success"').read()
+        if imgInstall == """Success\n""":
+            print("Image installation successful.")
+            break
+        else:
+            print(imgInstall)
+            print(f"It appears the image did not install properly. Make sure you have {engine.title()} installed and running. Linux users can try running 'sudo service {engine.lower()} start'. You can also build the image yourself by using '{engine.lower()} build . -t {imgName}' Be sure to keep name of image {imgName} else the app will not work. ")
+            retry = input("Retry? (Yes/No): ")
+            if retry.lower() == "no":
+                break
+    print("All requirements have been successfully installed. Creating configuration file.")
+    configFile()           
 
             
     
@@ -65,13 +86,26 @@ def updateFull():
     print("placeholdre")
   
 def updateImg():
-    print("placeholdre")
-
+    print("Removing old image....")
+    os.system(f'{engine} rmi -f {imgName}')
+    print("Making new image...")
+    os.system(f'{engine} build . -t {imgName}')
+    if os.popen(f'{engine} run {imgName} echo "Success"').read() == "Success":
+        print("Success")
+    else:
+        print("Fail")
+    
 def updateFull():
     print("placeholdre")
 
 def configFile():
-    print("placeholdre")
+    print("Creating up config file....")
+    f = open(".config", "w")
+    config = f'''PLATFORM: {platform.lower()}
+ENGINE: {engine.lower()}
+LAST_UPDATE: {datetime.now()}'''
+    f.writelines(config)
+    print("Configuration file generated.")
 
 def disclaimer():
     print("placeholdre")
@@ -103,8 +137,6 @@ def main():
     
     elif option == '5':
         quit()
-
-    print(platform, engine)
     
 if __name__ == "__main__":
     print('Welcome to Webscan Setup and Utility Software')
@@ -118,6 +150,8 @@ if __name__ == "__main__":
 # 2. Asking user to install podman or docker [DONE]
 # 3. Ask user what is installed and confirm check whether its running or not using helloworld image [DONE]
 # 4. Installing required Python modules [DONE]
-# 5. Building Image using docker or podman 
+# 5. Building Image using docker or podman [DONE]
 # 6. Make config file
 # 7. Test run
+# 8. Add image update functionality
+# 9. 
