@@ -46,7 +46,16 @@ Retry the test.  """)
             if "docker" in i:
                 continue
         os.system(f"python -m pip install {i}")
-    installed = input("Did all packages installed successfully? (Yes/No): ")    
+    installed = input("Did all packages installed successfully? (Yes/No): ")
+    while True:
+        installed = input("Did all packages installed successfully? (Yes/No): ")
+        if installed.lower() == "yes":
+            print("Setup will now continue: ")
+        elif installed.lower() == "no":
+            print("You can either retry using the setup or manually install packages by running 'pip install -r requirements.txt. Once installed, enter yes in the prompt. ")
+        else:
+            print("Enter a valid option")
+
 
 
 
