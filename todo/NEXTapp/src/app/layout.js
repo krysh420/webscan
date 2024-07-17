@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 export const metadata = {
-  title: 'TODO APP',
+  title: 'WebScan',
 }
 
 export default function RootLayout({ children }) {

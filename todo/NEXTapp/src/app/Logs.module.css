@@ -1,0 +1,10 @@
+.cardStyle{
+    width: 22rem;
+    color: #00245a;
+    background-color: #e0eeff;
+    border: 1px solid #003678;
+}
+.cardStyle:hover{
+    cursor:pointer;
+    background-color: #c6e0ff
+}

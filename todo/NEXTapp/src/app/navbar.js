@@ -3,13 +3,13 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 
-const navbar = () => {
+export default function NavBar(){
   const pathname = usePathname()
   return (
     <>
     <nav className="navbar navbar-expand-lg navbar-primary navbar-dark bg-primary">
     <div className="container-fluid">
-        <Link className="navbar-brand" href="/">TODO</Link>
+        <Link className="navbar-brand" href="/">WebScan</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
         </button>
@@ -28,5 +28,3 @@ const navbar = () => {
     </>
   )
 }
-
-export default navbar

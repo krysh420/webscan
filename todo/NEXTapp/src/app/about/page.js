@@ -1,6 +1,6 @@
-import Navbar from "../navbar"
+import Navbar from "../NavBar"
 
-const about = () => {
+export default function About(){
     return (
         <>
         <Navbar/>
@@ -12,5 +12,3 @@ const about = () => {
         </>
     )
 }
-
-export default about
