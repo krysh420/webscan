@@ -36,7 +36,8 @@ def setup_req():
         elif test.lower() == "no":
             print(f"""Make sure {ENGINE.title()} is installed, its services are online and its added to PATH (More important for Windows users).
 Make sure you are connected to the internet.
-Make sure you have sufficient privileges.
+Make sure you have sufficient privileges. 
+Make sure your user is part of "docker" group if you are on Linux. Alternatively, you can run the python script as sudo, though it is not recommended.
 Retry the test.  """)
             print("The test will be run again. To stop, exit the setup using ctrl+c.\n")
         else:
@@ -54,27 +55,27 @@ Retry the test.  """)
                 continue
         os.system(f"python -m pip install {i}")
     while True:
-        installed = input("Did all packages installed successfully? (Yes/No): ")
-        if installed.lower() == "yes":
+        module_install = input("Did all packages installed successfully? (Yes/No): ")
+        if module_install.lower() == "yes":
             print("Setup will now continue...... \n")
             break
-        elif installed.lower() == "no":
-            print("You can either retry using the setup or manually install packages by running 'pip install -r requirements.txt. To quit the setup, enter 'quit' in the prompt. Once installed, enter yes in the prompt. ")
-        elif installed.lower() == "quit":
+        elif module_install.lower() == "no":
+            print("You can either retry using the setup or manually install packages by running 'pip install -r requirements.txt'. Make sure you have pip installed if you are a linux user. \nTo quit the setup, enter 'quit' in the prompt. Once installed, enter yes in the prompt. ")
+        elif module_install.lower() == "quit":
             print("Setup will now terminate. You can rerun the setup once all packages are installed...")
             quit()
         else:
             print("Enter a valid option.\n")
 
-    print("Building Docker image....")
+    print(f"Building {ENGINE.title()} image....")
     while True:
-        os.system(f"{ENGINE} build . -t {IMG_NAME}")
-        imgInstall = os.popen(f'{ENGINE} run {IMG_NAME} echo "Success"').read()
-        if imgInstall == """Success\n""":
+        os.system(f"{ENGINE} build {ENGINE} -t {IMG_NAME}")
+        img_install = os.popen(f'{ENGINE} run {IMG_NAME} echo "Success"').read()
+        if img_install == """Success\n""":
             print("Image installation successful.\n")
             break
         else:
-            print(imgInstall)
+            print(img_install)
             print(f"It appears the image did not install properly. Make sure you have {ENGINE.title()} installed and running. Linux users can try running 'sudo service {ENGINE.lower()} start'. You can also build the image yourself by using '{ENGINE.lower()} build . -t {IMG_NAME}' Be sure to keep name of image {IMG_NAME} else the app will not work. ")
             retry = input("Retry? (Yes/No): ")
             if retry.lower() == "no":
@@ -115,7 +116,7 @@ def disclaimer():
     print("placeholdre")
 
 def main():
-    print('''Choose what you want to do:
+    print('''\nChoose what you want to do:
 1. Setup requirements
 2. Check for Updates
 3. Update only image 
@@ -144,6 +145,7 @@ def main():
     
 if __name__ == "__main__":
     print('Welcome to Webscan Setup and Utility Software')
+    print('Make sure you have read README.md to avoid errors while setting up.')
     while(True):
         main()
 
