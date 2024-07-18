@@ -12,6 +12,7 @@ from datetime import datetime
 # To extract links from logs
 from re import findall 
 
+f = open(".config", "r")
 # Declare log name
 LOGNAME = 'LOG-'+str(datetime.now())+'.log' 
 
@@ -50,7 +51,7 @@ def extract_links():
 def main():
 # You change the client path by uncommenting the line below and putting your address to 
     # client = docker.DockerClient(base_url='unix://var/run/docker.sock')
-    client = docker.from_env() # be sure to comment this line when you do that
+    client = docker.from_env() # Be sure to comment this line when you do that
     container = client.containers.run("kalilinux/kali-rolling", "apt update", detach=True)
     
     init_log()

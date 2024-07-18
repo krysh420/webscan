@@ -81,7 +81,8 @@ Retry the test.  """)
                 break
     print("All requirements have been successfully installed.\n")
     config_file()           
-    
+    print("App is now ready to use. You can run 'test.py' to make sure everything is running \n")
+
 def update_full():
     print("placeholdre")
   
@@ -103,9 +104,12 @@ def config_file():
     f = open(".config", "w")
     config = f'''OS: {PLATFORM.lower()}
 ENGINE: {ENGINE.lower()}
+IMAGE: {IMG_NAME}
 LAST_UPDATE: {datetime.now()}'''
     f.writelines(config)
     print("Configuration file generated.")
+    f.close()
+
 
 def disclaimer():
     print("placeholdre")
@@ -155,3 +159,6 @@ if __name__ == "__main__":
 # 7. Test run
 # 8. Add image update functionality
 # 9. Add full update functionality 
+# 10. Address sudo issue for docker
+# 11. Add headsup for pip not being installed in READ.md
+# 12. Edit requirements.txt to exclude re and logging
