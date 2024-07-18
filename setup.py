@@ -38,6 +38,7 @@ def setup_req():
 Make sure you are connected to the internet.
 Make sure you have sufficient privileges. 
 Make sure your user is part of "docker" group if you are on Linux. Alternatively, you can run the python script as sudo, though it is not recommended.
+To add user to docker group, follow the following link: https://docs.docker.com/engine/install/linux-postinstall/
 Retry the test.  """)
             print("The test will be run again. To stop, exit the setup using ctrl+c.\n")
         else:
@@ -61,6 +62,7 @@ Retry the test.  """)
             break
         elif module_install.lower() == "no":
             print("You can either retry using the setup or manually install packages by running 'pip install -r requirements.txt'. Make sure you have pip installed if you are a linux user. \nTo quit the setup, enter 'quit' in the prompt. Once installed, enter yes in the prompt. ")
+            print("Some Linux distros now also manage packages externally, for those, you can either install by adding --break-system-packages flag when running above command or by manually installing them using whatever package manager the distro is using.")
         elif module_install.lower() == "quit":
             print("Setup will now terminate. You can rerun the setup once all packages are installed...")
             quit()
