@@ -3,6 +3,9 @@
 # To log output
 import logging 
 
+# For paths (World would be a better place if Windows also used '/' to navigate directories instead of '\')
+from pathlib import Path
+
 # To manage container
 import docker 
 
@@ -18,7 +21,7 @@ LOGNAME = 'LOG-'+str(datetime.now())+'.log'
 
 # Initialise log file.
 def init_log():
-    f = open(f'logs/{LOGNAME}', 'w')
+    f = open(Path(f'logs/{LOGNAME}'), 'w')
     f.writelines('\nLOG '+str(datetime.now()))
     f.close()
 
@@ -26,7 +29,7 @@ def init_log():
 # Outputs contents of output.log in the terminal window. Each line of log is generated in this format: INFO:root:b'<output of command>\n'
 # so to make it readable in terminal, decided to remove the extra parts 
 def read_log():
-    f = open(f'logs/{LOGNAME}', 'r')
+    f = open(Path(f'logs/{LOGNAME}'), 'r')
     
     x = f.readlines()
     filter = ["INFO:root:"]
@@ -41,7 +44,7 @@ def read_log():
 def extract_links():
     f = open('links.txt', 'w')
 
-    with open(f'logs/{LOGNAME}') as file:
+    with open(Path(f'logs/{LOGNAME}')) as file:
         for line in file:
             urls = findall('https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', line)
             f.write(str(urls)+'\n')
@@ -52,10 +55,10 @@ def main():
 # You change the client path by uncommenting the line below and putting your address to 
     # client = docker.DockerClient(base_url='unix://var/run/docker.sock')
     client = docker.from_env() # Be sure to comment this line when you do that
-    container = client.containers.run("kalilinux/kali-rolling", "apt update", detach=True)
+    container = client.containers.run("nikto-img", "nikto -V", detach=True)
     
     init_log()
-    logging.basicConfig(filename=f'logs/{LOGNAME}',filemode='a', level=logging.INFO)    
+    logging.basicConfig(filename=Path(f'logs/{LOGNAME}'),filemode='a', level=logging.INFO)    
     
     for line in container.logs(stream=True):
         logging.info(line.strip().decode('utf-8')) # To have clean logs

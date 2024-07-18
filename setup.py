@@ -62,7 +62,7 @@ Retry the test.  """)
             break
         elif module_install.lower() == "no":
             print("You can either retry using the setup or manually install packages by running 'pip install -r requirements.txt'. Make sure you have pip installed if you are a linux user. \nTo quit the setup, enter 'quit' in the prompt. Once installed, enter yes in the prompt. ")
-            print("Some Linux distros now also manage packages externally, for those, you can either install by adding --break-system-packages flag when running above command or by manually installing them using whatever package manager the distro is using.")
+            print("Some Linux distros now also manage packages externally, for those, you can either install by adding --break-system-packages flag when running above command or by manually installing them using whatever package manager the distro is using. \nYour distro may also flag python and python3 as different, you can fix that by either editing this file and adding python3 or installing 'python-is-python3' using your package manager (eg: apt).")
         elif module_install.lower() == "quit":
             print("Setup will now terminate. You can rerun the setup once all packages are installed...")
             quit()
@@ -71,7 +71,7 @@ Retry the test.  """)
 
     print(f"Building {ENGINE.title()} image....")
     while True:
-        os.system(f"{ENGINE} build {ENGINE} -t {IMG_NAME}")
+        os.system(f"{ENGINE} build . -t {IMG_NAME}")
         img_install = os.popen(f'{ENGINE} run {IMG_NAME} echo "Success"').read()
         if img_install == """Success\n""":
             print("Image installation successful.\n")
