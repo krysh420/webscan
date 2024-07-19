@@ -9,6 +9,7 @@ from platform import system as os_check # Gave an alias so it doesn't interfere 
 # To timestamp last setup
 from datetime import datetime
 
+# Setting up dependencies
 def setup_req():
 # Defining name of image
     global IMG_NAME 
@@ -111,6 +112,7 @@ Retry the test.  """)
 def update_full(): # WORK PENDING
     print("placeholdre")
   
+
 def update_img(): # Remove old image, create new one
 # Image removal
     print("Removing old image....")
@@ -125,9 +127,7 @@ def update_img(): # Remove old image, create new one
         print("Success")
     else:
         print("Fail")
-    
-def update_full():
-    print("placeholdre")
+
 
 def config_file():
     print("Creating up config file....")
@@ -144,9 +144,10 @@ LAST_UPDATE: {datetime.now()}'''
 def disclaimer():
     print("placeholdre")
 
+
 def main():
     print('''\nChoose what you want to do:
-1. Setup requirements
+1. Install dependencies
 2. Check for Updates
 3. Update only image 
 4. Disclaimer
@@ -187,9 +188,9 @@ if __name__ == "__main__":
 # 3. Ask user what is installed and confirm check whether its running or not using helloworld image [DONE]
 # 4. Installing required Python modules [DONE]
 # 5. Building Image using docker or podman [DONE]
-# 6. Make config file
-# 7. Test run
-# 8. Add image update functionality
+# 6. Make config file [DONE]
+# 7. Test run [DONE]
+# 8. Add image update functionality [DONE]
 # 9. Add full update functionality 
 # 10. Address sudo issue for docker [DONE WITH COMMENTS AND PROMPTS]
 # 11. Add headsup for pip not being installed in READ.md
