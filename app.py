@@ -50,7 +50,7 @@ def extract_links():
 
     with open(Path(f'logs/{LOGNAME}')) as file:
         for line in file:
-            urls = findall('https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', line)
+            urls = findall(r'https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', line)
             f.write(str(urls)+'\n')
     
     f.close()
