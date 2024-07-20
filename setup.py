@@ -1,4 +1,5 @@
-#IMPORT ONLY WHAT YOU NEED
+# Module imports, all of these are part of Python Standard Library. No need to install them
+# ONLY IMPORT WHAT YOU NEED
 
 # For executing commands in terminal to setup things
 from os import system, popen
@@ -8,6 +9,9 @@ from platform import system as os_check # Gave an alias so it doesn't interfere 
 
 # To timestamp last setup
 from datetime import datetime
+
+# To check presence of configuration file
+from pathlib import Path
 
 # Setting up dependencies
 def setup_req():
@@ -70,7 +74,7 @@ Retry the test.  """)
         elif ENGINE.lower() == "podman": # Why should I install docker module if I use podman
             if "docker" in i:
                 continue
-        system(f"python -m pip install {i}") # Linux users may have to use python3 instead of python (While I understand a lot of core packages of Linux still depend on Python2, it doesnt mean that Python2 should be default)
+        system(f"python -m pip install  --ignore-requires-python {i}") # Linux users may have to use python3 instead of python (While I understand a lot of core packages of Linux still depend on Python2, it doesnt mean that Python2 should be default)
     
     f.close()
     
@@ -152,7 +156,6 @@ def main():
 3. Update only image 
 4. Disclaimer
 5. Exit
-ONLY RUN OTHER COMMANDS ONCE YOU EXECUTE 1.
            ''')
     
     option = input("Enter your choice: ")
@@ -177,8 +180,28 @@ ONLY RUN OTHER COMMANDS ONCE YOU EXECUTE 1.
 if __name__ == "__main__":
     print('Welcome to Webscan Setup and Utility Software')
     print('Make sure you have read README.md to avoid errors while setting up.')
+    CONF_DIR = Path('.config')
+    print("Checking for configuration file....")
     while(True):
-        main()
+        if CONF_DIR.is_file():
+            print("Configuration file found!")
+            f = open(".config")
+            for i in f:
+                global PLATFORM, ENGINE, IMG_NAME
+                if "OS"in i:
+                    PLATFORM = i.replace("OS: ", '')
+                    PLATFORM = PLATFORM.replace("\n", '')
+                elif "ENGINE" in i:
+                    ENGINE = i.replace("ENGINE: ", '')
+                    ENGINE = ENGINE.replace("\n",'')
+                elif "IMAGE" in i:
+                    IMG_NAME = i.replace("IMAGE: ",  '')
+                    IMG_NAME = IMG_NAME.replace("\n",'')
+                f.close()
+            main()
+        else:
+            print("Configuration file not found. Executing function to set up dependencies...")
+            setup_req()
 
 
 
