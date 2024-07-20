@@ -58,13 +58,13 @@ def extract_links():
 def main():
 # You change the client path by uncommenting the line below and putting your address to 
     # client = docker.DockerClient(base_url='unix://var/run/docker.sock')
-    client = docker.from_env() # Be sure to comment this line when you do that
-    container = client.containers.run("nikto-img", "nikto -V", detach=True)
+    CLIENT = docker.from_env() # Be sure to comment this line when you do that
+    CONTAINER = CLIENT.containers.run("nikto-img", "nikto -V", detach=True)
     
     init_log()
     logging.basicConfig(filename=Path(f'logs/{LOGNAME}'),filemode='a', level=logging.INFO)    
     
-    for line in container.logs(stream=True):
+    for line in CONTAINER.logs(stream=True):
         logging.info(line.strip().decode('utf-8')) # To have clean logs
     
     read_log()
