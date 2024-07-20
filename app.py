@@ -23,11 +23,14 @@ f = open(".config", "r")
 # Declare log name
 LOGNAME = 'LOG-'+str(datetime.now())+'.log' 
 
+# Declaring log path
+log_dir = Path('logs')
+log_dir.mkdir(parents=True, exist_ok=True)
+
 # Initialise log file.
 def init_log():
-    f = open(Path(f'logs/{LOGNAME}'), 'w')
-    f.writelines('\nLOG '+str(datetime.now()))
-    f.close()
+    with open(log_dir / LOGNAME, 'w') as f:
+        f.writelines('\nLOG ' + str(datetime.now()))
 
 
 # Outputs contents of output.log in the terminal window. Each line of log is generated in this format: INFO:root:b'<output of command>\n'
@@ -62,8 +65,8 @@ def main():
     CONTAINER = CLIENT.containers.run("nikto-img", "nikto -V", detach=True)
     
     init_log()
-    logging.basicConfig(filename=Path(f'logs/{LOGNAME}'),filemode='a', level=logging.INFO)    
-    
+    logging.basicConfig(filename=log_dir / LOGNAME, filemode='a', level=logging.INFO)
+
     for line in CONTAINER.logs(stream=True):
         logging.info(line.strip().decode('utf-8')) # To have clean logs
     
