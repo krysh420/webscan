@@ -86,6 +86,7 @@ Retry the test.  """)
             break
         elif module_install.lower() == "no":
             print("You can either retry using the setup or manually install packages by running 'pip install -r requirements.txt'. Make sure you have pip installed if you are a linux user. \nTo quit the setup, enter 'quit' in the prompt. Once installed, enter yes in the prompt. ")
+            print("Windows users need to ensure Python is added to path.")
             print("Some Linux distros now also manage packages externally, for those, you can either install by adding --break-system-packages flag when running above command or by manually installing them using whatever package manager the distro is using. \nYour distro may also flag python and python3 as different, you can fix that by either editing this file and adding python3 or installing 'python-is-python3' using your package manager (eg: apt).")
             try_again = input("Retry with --break-system-packages? [It should be harmless because this project does not use any package on which core features of Linux depend] (Yes/No): ")
             
@@ -101,7 +102,7 @@ Retry the test.  """)
                     elif ENGINE.lower() == "podman": # Why should I install docker module if I use podman
                         if "docker" in i:
                             continue
-                    system(f"pip install {i}  --ignore-requires-python --break-system-packages") # Linux users may have to use python3 instead of python (While I understand a lot of core packages of Linux still depend on Python2, it doesnt mean that Python2 should be default)
+                    system(f"pip install {i} --ignore-requires-python --break-system-packages") # Linux users may have to use python3 instead of python (While I understand a lot of core packages of Linux still depend on Python2, it doesnt mean that Python2 should be default)
                 
                 f.close()
             
