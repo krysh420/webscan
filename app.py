@@ -1,4 +1,5 @@
 # Module imports
+# ONLY IMPORT WHAT YOU NEED
 
 # To log output
 import logging 
@@ -14,6 +15,9 @@ from datetime import datetime
 
 # To extract links from logs
 from re import findall 
+
+# Global variables
+global ENGINE, PLATFORM, IMG_NAME
 
 f = open(".config", "r")
 # Declare log name

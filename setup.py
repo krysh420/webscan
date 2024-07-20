@@ -74,7 +74,7 @@ Retry the test.  """)
         elif ENGINE.lower() == "podman": # Why should I install docker module if I use podman
             if "docker" in i:
                 continue
-        system(f"python -m pip install  --ignore-requires-python {i}") # Linux users may have to use python3 instead of python (While I understand a lot of core packages of Linux still depend on Python2, it doesnt mean that Python2 should be default)
+        system(f"python -m pip install  --ignore-requires-python  {i}") # Linux users may have to use python3 instead of python (While I understand a lot of core packages of Linux still depend on Python2, it doesnt mean that Python2 should be default)
     
     f.close()
     
@@ -87,6 +87,27 @@ Retry the test.  """)
         elif module_install.lower() == "no":
             print("You can either retry using the setup or manually install packages by running 'pip install -r requirements.txt'. Make sure you have pip installed if you are a linux user. \nTo quit the setup, enter 'quit' in the prompt. Once installed, enter yes in the prompt. ")
             print("Some Linux distros now also manage packages externally, for those, you can either install by adding --break-system-packages flag when running above command or by manually installing them using whatever package manager the distro is using. \nYour distro may also flag python and python3 as different, you can fix that by either editing this file and adding python3 or installing 'python-is-python3' using your package manager (eg: apt).")
+            try_again = input("Retry with --break-system-packages? [It should be harmless because this project does not use any package on which core features of Linux depend] (Yes/No): ")
+            
+            if try_again.lower() == "yes":
+            
+                f = open("requirements.txt", "r") # Opening requirements file
+                lines = f.readlines()
+
+                for i in lines:
+                    if ENGINE.lower() == "docker":   # Why should I install podman module if I use docker
+                        if "podman" in i:
+                            continue                
+                    elif ENGINE.lower() == "podman": # Why should I install docker module if I use podman
+                        if "docker" in i:
+                            continue
+                    system(f"python -m pip install  --ignore-requires-python  {i} --break-system-packages") # Linux users may have to use python3 instead of python (While I understand a lot of core packages of Linux still depend on Python2, it doesnt mean that Python2 should be default)
+                
+                f.close()
+            
+            else:
+                print("Setup will now terminate. You can rerun the setup once all packages are installed...")
+                quit()
         elif module_install.lower() == "quit":
             print("Setup will now terminate. You can rerun the setup once all packages are installed...")
             quit()
