@@ -2,7 +2,7 @@ import docker
 
 global ENGINE, PLATFORM, IMG_NAME
 
-print("This terst is just for all Python and Docker based things")
+print("This test is just for all Python and Docker based things")
 print("Reading configuration file....")
 f = open('.config', 'r')
 CONFIG = f.readlines()

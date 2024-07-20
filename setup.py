@@ -207,8 +207,9 @@ if __name__ == "__main__":
     while(True):
         if CONF_DIR.is_file():
             print("Configuration file found!")
-            f = open(".config")
-            for i in f:
+            f = open(".config","r")
+            lines = f.readlines()
+            for i in lines:
                 global PLATFORM, ENGINE, IMG_NAME
                 if "OS"in i:
                     PLATFORM = i.replace("OS: ", '')
