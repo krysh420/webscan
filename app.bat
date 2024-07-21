@@ -1,7 +1,7 @@
 @echo off
 echo Activating virtual environment......
-source webscan\bin\activate
+call webscan\bin\activate
 cd scripts
-python app.py
+python.exe app.py
 deactivate
 exit
