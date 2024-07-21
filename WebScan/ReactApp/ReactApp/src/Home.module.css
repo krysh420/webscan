@@ -1,11 +1,24 @@
-.cardStyle {
+.cardStyleResult {
     max-width: inherit;
     color: #00245a;
     background-color: #dfedff;
-    border: 1px solid #003678;
+    border: 1.5px solid #003678;
 }
 
-.cardStyle:hover {
+.cardStyleResult:hover {
     cursor: pointer;
     background-color: #c6e0ff
+}
+
+
+.cardStyleLogs {
+    max-width: inherit;
+    color: #3d2e00;
+    background-color: #ffcd37;
+    border: 1.5px solid #3b2d00;
+}
+
+.cardStyleLogs:hover {
+    cursor: pointer;
+    background-color: #ffc107
 }

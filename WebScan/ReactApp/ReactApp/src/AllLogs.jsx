@@ -31,7 +31,7 @@ export default function Logs() {
                 {
                 Logs.length===0?
                 <div 
-                className={`card mt-4 ${styles.cardStyle}`}
+                className={`card mt-4 ${styles.cardStyleResult}`}
                 > 
                     <div className="card-body d-flex justify-content-between align-items-center">
                             <div className="icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-info-circle" style={{marginBottom:"2px"}} viewBox="0 0 16 16">
