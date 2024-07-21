@@ -1,6 +1,7 @@
-@echo off
-echo Activating virtual environment......
-call webscan\bin\activate
-cd scripts
+Write-Output "Activating virtual environment......"
+& "webscan\bin\Activate.ps1"
+
+Set-Location -Path "scripts"
 python.exe setup.py
-deactivate
+
+Start-Process deactivate
