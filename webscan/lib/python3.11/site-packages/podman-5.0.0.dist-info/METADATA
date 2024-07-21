@@ -1,0 +1,84 @@
+Metadata-Version: 2.1
+Name: podman
+Version: 5.0.0
+Summary: Bindings for Podman RESTful API
+Home-page: https://github.com/containers/podman-py
+Author: Brent Baude, Jhon Honce, Urvashi Mohnani
+Author-email: jhonce@redhat.com
+License: Apache-2.0
+Project-URL: Bug Tracker, https://github.com/containers/podman-py/issues
+Project-URL: Libpod API, https://docs.podman.io/en/latest/_static/api.html
+Keywords: podman,libpod
+Platform: any
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pyxdg (>=0.26)
+Requires-Dist: requests (>=2.24)
+Requires-Dist: urllib3
+Requires-Dist: tomli (>=1.2.3) ; python_version < "3.11"
+Provides-Extra: progress_bar
+Requires-Dist: rich (>=12.5.1) ; extra == 'progress_bar'
+
+# podman-py
+[![Build Status](https://api.cirrus-ci.com/github/containers/podman-py.svg)](https://cirrus-ci.com/github/containers/podman-py/main)
+
+This python package is a library of bindings to use the RESTful API of [Podman](https://github.com/containers/podman).
+It is currently under development and contributors are welcome!
+
+
+## Dependencies
+
+* For runtime dependencies, see [requirements.txt](https://github.com/containers/podman-py/blob/main/requirements.txt).
+* For testing and development dependencies, see [test-requirements.txt](https://github.com/containers/podman-py/blob/main/test-requirements.txt).
+
+## Example usage
+
+```python
+"""Demonstrate PodmanClient."""
+import json
+from podman import PodmanClient
+
+# Provide a URI path for the libpod service.  In libpod, the URI can be a unix
+# domain socket(UDS) or TCP.  The TCP connection has not been implemented in this
+# package yet.
+
+uri = "unix:///run/user/1000/podman/podman.sock"
+
+with PodmanClient(base_url=uri) as client:
+    version = client.version()
+    print("Release: ", version["Version"])
+    print("Compatible API: ", version["ApiVersion"])
+    print("Podman API: ", version["Components"][0]["Details"]["APIVersion"], "\n")
+
+    # get all images
+    for image in client.images.list():
+        print(image, image.id, "\n")
+
+    # find all containers
+    for container in client.containers.list():
+        first_name = container['Names'][0]
+        container = client.containers.get(first_name)
+        print(container, container.id, "\n")
+
+        # available fields
+        print(sorted(container.attrs.keys()))
+
+    print(json.dumps(client.df(), indent=4))
+```
+
+## Contributing
+
+See [CONTRIBUTING.md](https://github.com/containers/podman-py/blob/main/CONTRIBUTING.md)
