@@ -3,7 +3,7 @@ certifi==2024.7.4
 charset-normalizer==2.1.1
 Django==5.0.7
 django-cors-headers==4.4.0
-docker==5.0.3
+docker
 idna==3.7
 podman==5.0.0
 pyxdg==0.28
