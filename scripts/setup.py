@@ -67,7 +67,7 @@ Retry the test.  """)
     if (PLATFORM.lower()).rstrip() == "windows":
         system("python.exe -m pip install -r requirements.txt")
     else:
-        system("python3 -m pip install -r requirements.txt")
+        system("python3 -m pip install -r requirements.txt") # Linux and MacOS have same way (God bless UNIX based OSes)
     
     while True:
         module_install = input("Did all packages installed successfully? (Yes/No): ")
@@ -75,7 +75,7 @@ Retry the test.  """)
         if module_install.lower() == "yes":
             print("Setup will now continue...... \n")
             break
-        elif module_install.lower() == "no":
+        elif module_install.lower() == "no": # This should not even be used now, its just a reminder to my old self. A reminder of my mistakes, my naivety
             print("You can either retry using the setup or manually install packages by running 'pip install -r requirements.txt'. Make sure you have pip installed if you are a linux user. \nTo quit the setup, enter 'quit' in the prompt. Once installed, enter yes in the prompt. ")
             print("Windows users need to ensure Python is added to path.")
             print("Some Linux distros now also manage packages externally, for those, you can either install by adding --break-system-packages flag when running above command or by manually installing them using whatever package manager the distro is using. \nYour distro may also flag python and python3 as different, you can fix that by either editing this file and adding python3 or installing 'python-is-python3' using your package manager (eg: apt).")
@@ -114,8 +114,17 @@ Retry the test.  """)
     config_file() # Generating config file           
     print("\nApp is now ready to use. You can run 'test.py' to make sure everything is running \n")
 
-def update_full(): # WORK PENDING
-    print("placeholdre")
+def update_full(): # Updat5e entire project 
+    print("Performing full update")
+    print("Pulling files from Github...")
+    system('git pull')
+    print("Updating image...")
+    update_img()
+    print("Recreating configuration file....")
+    print("Removing old configuration file....")
+    system("rm .config")
+    config_file()
+
   
 
 def update_img(): # Remove old image, create new one
@@ -134,9 +143,9 @@ def update_img(): # Remove old image, create new one
         print("Fail")
 
 
-def config_file():
+def config_file(): # Generates Config file
     print("Creating up config file....")
-    f = open(".config", "w")
+    f = open(".config", "w") 
     config = f'''OS: {PLATFORM.lower()}
 ENGINE: {ENGINE.lower()}
 IMAGE: {IMG_NAME}
@@ -146,8 +155,13 @@ LAST_UPDATE: {datetime.now()}'''
     f.close()
 
 
-def disclaimer():
-    print("placeholdre")
+def disclaimer(): # We aint responsible if you try to run this on Microsoft servers or smthn
+    print('''**Disclaimer**
+          
+The tool used in this project is intended for use by professionals.
+Unauthorized use of this tool on any site without explicit permission from the site owner is strictly prohibited. 
+This project is released under the MIT License. By using this tool, you agree that the creators of this project cannot be held liable for any unethical or unauthorized use. 
+Users are solely responsible for ensuring that their use of this tool complies with all applicable laws and regulations.''')
 
 
 def main():
@@ -179,17 +193,17 @@ def main():
         quit()
     
 if __name__ == "__main__":
-    print('Welcome to Webscan Setup and Utility Software')
+    print('\nWelcome to Webscan Setup and Utility Software')
     print('Make sure you have read README.md to avoid errors while setting up.')
     CONF_DIR = Path('.config')
     print("Checking for configuration file....")
     while(True):
-        if CONF_DIR.is_file():
+        if CONF_DIR.is_file(): # If config file is already present, call main function
             print("Configuration file found!")
-            f = open(".config","r")
-            lines = f.readlines()
-            for i in lines:
-                global PLATFORM, ENGINE, IMG_NAME
+            f = open(".config","r") # Open config file
+            lines = f.readlines() 
+            for i in lines: # Store values from config file into their respective (global) variables
+                global PLATFORM, ENGINE, IMG_NAME 
                 if "OS"in i:
                     PLATFORM = i.replace("OS: ", '')
                     PLATFORM = PLATFORM.replace("\n", '')
@@ -203,8 +217,9 @@ if __name__ == "__main__":
             print(f'OS: {PLATFORM}',f'\nENGINE: {ENGINE}',f'\nIMAGE: {IMG_NAME}')
             main()
         else:
-            print("Configuration file not found. Executing function to set up dependencies...")
+            print("Configuration file not found. Executing function to set up dependencies...") # Else if no config file, call setup function to install deps
             setup_req()
+            disclaimer() # Must show disclaimer atleast once
 
 
 # SETUP REQUIREMENTS:
@@ -221,4 +236,4 @@ if __name__ == "__main__":
 # 11. Add headsup for pip not being installed in READ.md
 # 12. Check whether .config exists, also import variables from there to this if it exists [DONE]
 # 13. Heads up for setting execution policy for Windows user
-# 14. Give chmod +x for scripts heads up
+# 14. Give chmod +x for scripts heads up linux
