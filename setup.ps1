@@ -3,5 +3,4 @@ Write-Output "Activating virtual environment......"
 
 Set-Location -Path "scripts"
 python.exe setup.py
-
-Start-Process deactivate
+"deactivate"

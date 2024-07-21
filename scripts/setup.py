@@ -111,18 +111,17 @@ Retry the test.  """)
                 break # Or if you give up
 
     print("\nAll requirements have been successfully installed.\n")
+    print("Creating up config file....")
     config_file() # Generating config file           
     print("\nApp is now ready to use. You can run 'test.py' to make sure everything is running \n")
 
-def update_full(): # Updat5e entire project 
+def update_full(): # Update entire project 
     print("Performing full update")
     print("Pulling files from Github...")
     system('git pull')
     print("Updating image...")
     update_img()
     print("Recreating configuration file....")
-    print("Removing old configuration file....")
-    system("rm .config")
     config_file()
 
   
@@ -144,7 +143,6 @@ def update_img(): # Remove old image, create new one
 
 
 def config_file(): # Generates Config file
-    print("Creating up config file....")
     f = open(".config", "w") 
     config = f'''OS: {PLATFORM.lower()}
 ENGINE: {ENGINE.lower()}
