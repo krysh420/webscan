@@ -4,10 +4,7 @@ require("dotenv").config()
 
 // Module Imports
 const express = require('express')
-const fs = require('fs');
-
-
-// Reading File
+const { open } = require('node:fs/promises');
 
 
 // Router Intilisation
@@ -16,12 +13,14 @@ const router = express.Router()
 
 router.get("/GetLogs",
     async(req,res)=>{
-            fs.readFile(process.env.LOGS_PATH, 'utf8',(err,data)=>{
-                if (err) {
-                    res.status(500).json({success:false,message:`error reading the file\n${err}`})
-                }
-                res.status(200).json({Success:true,data:data})
-            })
+        const file = await open(process.env.LOGS_PATH);
+        let arr = []
+        for await (const line of file.readLines()) {
+              let obj = {}
+              obj.line=line
+              arr = [...arr,obj]
+        }
+        res.status(200).json({success:true,data:arr})
             
     }
 )

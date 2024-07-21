@@ -1,5 +1,5 @@
 .cardStyle {
-    width: 22rem;
+    max-width: inherit;
     color: #00245a;
     background-color: #dfedff;
     border: 1px solid #003678;

@@ -1,23 +1,23 @@
-// import IndLogs from "./IndLog"
 import styles from "./Home.module.css"
 import {getLogs,getResLogs} from "../Utils/FetchLogs"
 import { useEffect, useState } from "react"
+import IndLogs from "./IndLog"
 
 
 export default function Logs() {
-    const [Logs, setLogs] = useState({})
-    const [ResLogs, setResLogs] = useState({})
+    const [Logs, setLogs] = useState([])
+    const [ResLogs, setResLogs] = useState([])
 
 
     const fetchLogs = async() => {
         const data = await getLogs()
-        setLogs(data)
+        setLogs(data.data)
     }
 
 
     const fetchResLogs = async() => {
         const data = await getResLogs()
-        setResLogs(data)
+        setResLogs(data.data)
     }
     useEffect(() => {
       fetchLogs()
@@ -28,9 +28,8 @@ export default function Logs() {
         <>
             <div>
                 <h2>Results</h2>
-                {/* {console.log(Logs)}{console.log(ResLogs)} */}
-                {/* {
-                Logs.Log.length===0?*/}
+                {
+                Logs.length===0?
                 <div 
                 className={`card mt-4 ${styles.cardStyle}`}
                 > 
@@ -45,10 +44,9 @@ export default function Logs() {
                         </div>
                     </div>
                 </div>
-                {/* :Log.map((item,index)=>{ 
-                    return <IndLogs key={index} log={item} resLog={ResLog[index]}/>
-                    // console.log(item) 
-                })}  */}
+                :Logs.map((item,index)=>{ 
+                    return <IndLogs key={index} log={item.line} resLog={ResLogs[index]}/>
+                })}  
             </div>
         </>
     )
