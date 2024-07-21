@@ -1,3 +1,4 @@
+requests==2.28.1
 pywin32==227; sys_platform=="win32"
 docker==5.0.3
 podman==5.0.0
