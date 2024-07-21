@@ -197,11 +197,11 @@ if __name__ == "__main__":
                     IMG_NAME = i.replace("IMAGE: ",  '')
                     IMG_NAME = IMG_NAME.replace("\n",'')
                 f.close()
+            print(f'OS: {PLATFORM}',f'\nENGINE: {ENGINE}','\nIMAGE: {IMG_NAME}')
             main()
         else:
             print("Configuration file not found. Executing function to set up dependencies...")
             setup_req()
-
 
 
 # SETUP REQUIREMENTS:
@@ -216,4 +216,4 @@ if __name__ == "__main__":
 # 9. Add full update functionality 
 # 10. Address sudo issue for docker [DONE WITH COMMENTS AND PROMPTS]
 # 11. Add headsup for pip not being installed in READ.md
-# 12. Check whether .config exists, also import variables from there to this if it exists
+# 12. Check whether .config exists, also import variables from there to this if it exists [DONE]
