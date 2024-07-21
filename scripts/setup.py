@@ -221,3 +221,4 @@ if __name__ == "__main__":
 # 11. Add headsup for pip not being installed in READ.md
 # 12. Check whether .config exists, also import variables from there to this if it exists [DONE]
 # 13. Heads up for setting execution policy for Windows user
+# 14. Give chmod +x for scripts heads up
