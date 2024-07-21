@@ -64,7 +64,10 @@ Retry the test.  """)
 
 # Installing Python modules
     print("Installing required modules")
-    system("python -m pip install --break-system-packages -r requirements.txt")
+    if (PLATFORM.lower()).rstrip() == "windows":
+        system("python.exe -m pip install -r requirements.txt")
+    else:
+        system("python3 -m pip install -r requirements.txt")
     
     while True:
         module_install = input("Did all packages installed successfully? (Yes/No): ")
