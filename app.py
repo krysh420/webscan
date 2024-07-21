@@ -8,7 +8,8 @@ import logging
 from pathlib import Path
 
 # To manage container
-import docker 
+import docker
+import podman
 
 # To timestamp logs
 from datetime import datetime 

@@ -29,4 +29,5 @@ log = log.strip().decode('utf-8')
 print(log)
 log = client.containers.run(IMG_NAME, f"echo {ENGINE} test successful.")
 log = log.strip().decode('utf-8')
+
 print(log)
