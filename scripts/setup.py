@@ -197,7 +197,7 @@ if __name__ == "__main__":
                     IMG_NAME = i.replace("IMAGE: ",  '')
                     IMG_NAME = IMG_NAME.replace("\n",'')
                 f.close()
-            print(f'OS: {PLATFORM}',f'\nENGINE: {ENGINE}','\nIMAGE: {IMG_NAME}')
+            print(f'OS: {PLATFORM}',f'\nENGINE: {ENGINE}',f'\nIMAGE: {IMG_NAME}')
             main()
         else:
             print("Configuration file not found. Executing function to set up dependencies...")

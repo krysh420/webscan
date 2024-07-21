@@ -25,7 +25,7 @@ f = open(".config", "r")
 LOGNAME = 'LOG-'+str(datetime.now())+'.log' 
 
 # Declaring log path
-log_dir = Path('logs')
+log_dir = Path('./logs')
 log_dir.mkdir(parents=True, exist_ok=True)
 
 # Initialise log file.
