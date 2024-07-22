@@ -14,7 +14,7 @@ export default function IndLogs(props){
                         <div className="text mx-3">
                         <h4 className="card-title mb-0">{log}</h4>
                         <p className="card-title fs-5 mt-1 mb-0">
-                        {resLog.line}</p>
+                        {resLog}</p>
                         </div>
                     </div>
                 </div>

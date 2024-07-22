@@ -11,13 +11,13 @@ export default function Logs() {
 
     const fetchLogs = async() => {
         const data = await getLogs()
-        setLogs(data.data)
+        setLogs(data)
     }
 
 
     const fetchResLogs = async() => {
         const data = await getResLogs()
-        setResLogs(data.data)
+        setResLogs(data)
     }
     useEffect(() => {
       fetchLogs()
@@ -45,7 +45,7 @@ export default function Logs() {
                     </div>
                 </div>
                 :Logs.map((item,index)=>{ 
-                    return <IndLogs key={index} log={item.line} resLog={ResLogs[index]}/>
+                    return <IndLogs key={index} log={item.log} resLog={ResLogs[index].ResLog}/>
                 })}  
             </div>
         </>
