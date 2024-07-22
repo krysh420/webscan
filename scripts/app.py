@@ -20,12 +20,11 @@ from re import findall
 # Global variables
 global ENGINE, PLATFORM, IMG_NAME
 
-f = open(".config", "r")
 # Declare log name
 LOGNAME = 'LOG-'+str(datetime.now())+'.log' 
 
 # Declaring log path
-log_dir = Path('./logs')
+log_dir = Path('../logs')
 log_dir.mkdir(parents=True, exist_ok=True)
 
 # Initialise log file.
@@ -37,7 +36,7 @@ def init_log():
 # Outputs contents of output.log in the terminal window. Each line of log is generated in this format: INFO:root:b'<output of command>\n'
 # so to make it readable in terminal, decided to remove the extra parts 
 def read_log():
-    f = open(Path(f'logs/{LOGNAME}'), 'r')
+    f = open(log_dir / LOGNAME, 'r')
     
     x = f.readlines()
     filter = ["INFO:root:"]
@@ -52,18 +51,45 @@ def read_log():
 def extract_links():
     f = open('links.txt', 'w')
 
-    with open(Path(f'logs/{LOGNAME}')) as file:
+    with open(log_dir / LOGNAME) as file:
         for line in file:
             urls = findall(r'https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', line)
             f.write(str(urls)+'\n')
     
     f.close()
 
+def read_config():
+    print("Checking for configuration file....")
+    CONF_DIR = Path('.config')
+
+    if CONF_DIR.is_file(): # If config file is already present, call main function
+        print("Configuration file found!")
+        f = open(".config","r") # Open config file
+        lines = f.readlines() 
+        for i in lines: # Store values from config file into their respective (global) variables
+            global PLATFORM, ENGINE, IMG_NAME 
+            if "OS"in i:
+                PLATFORM = i.replace("OS: ", '')
+                PLATFORM = PLATFORM.replace("\n", '')
+            elif "ENGINE" in i:
+                ENGINE = i.replace("ENGINE: ", '')
+                ENGINE = ENGINE.replace("\n",'')
+            elif "IMAGE" in i:
+                IMG_NAME = i.replace("IMAGE: ",  '')
+                IMG_NAME = IMG_NAME.replace("\n",'')
+        f.close()
+        print(f'OS: {PLATFORM}',f'\nENGINE: {ENGINE}',f'\nIMAGE: {IMG_NAME}')
+    else: # Else ask user to run setup script and exit the app
+        print("Configuration file not present. Run setup script to make a new one.\nExiting app....")
+        quit()
+
 def main():
+    read_config() # Setup will not run if config not present
 # You change the client path by uncommenting the line below and putting your address to 
     # client = docker.DockerClient(base_url='unix://var/run/docker.sock')
-    CLIENT = docker.from_env() # Be sure to comment this line when you do that
-    CONTAINER = CLIENT.containers.run("nikto-img", "nikto -V", detach=True)
+    url = "127.0.0.1:5000"
+    CLIENT = docker.from_env() # Be sure to comment this line if you do that
+    CONTAINER = CLIENT.containers.run("nikto-img", f"nikto -h {url}", network_mode='host', detach=True)
     
     init_log()
     logging.basicConfig(filename=log_dir / LOGNAME, filemode='a', level=logging.INFO)
