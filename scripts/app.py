@@ -10,6 +10,7 @@ from pathlib import Path
 # To manage container
 import docker
 import podman
+from podman import PodmanClient
 
 # To timestamp logs
 from datetime import datetime 
@@ -83,19 +84,52 @@ def read_config():
         print("Configuration file not present. Run setup script to make a new one.\nExiting app....")
         quit()
 
+# Function to manage Podman
+def podman_run(command):
+    try:
+        CLIENT = PodmanClient(base_url="unix:///run/user/1000/podman/podman.sock")
+        CONTAINER = CLIENT.containers.create(
+            IMG_NAME,
+            command=command,
+            network_mode='host',
+            detach=True
+        )
+        CONTAINER.start()
+        CONTAINER.wait()  # Wait for the container to complete
+        logs = CONTAINER.logs(stdout=True, stderr=True, stream=False)
+        return b''.join(logs).decode('utf-8').strip()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return str(e)    
+
+def docker_run(command):
+    try:
+# You change the client path by uncommenting the line below and putting your address to 
+        # CLIENT = docker.DockerClient(base_url='unix://var/run/docker.sock')
+        CLIENT = docker.from_env()
+        CONTAINER = CLIENT.containers.run(
+            IMG_NAME,
+            command, 
+            network_mode='host', 
+            detach=True
+        )
+        logs = CONTAINER.logs(stdout=True, stderr=True, stream=False)
+        return b''.join(logs).decode('utf-8').strip()
+    except Exception as e:
+        print(F"An error occured: {e}")
+        return e        
+
+
 def main():
     read_config() # Setup will not run if config not present
-# You change the client path by uncommenting the line below and putting your address to 
-    # client = docker.DockerClient(base_url='unix://var/run/docker.sock')
     url = "127.0.0.1:5000" # Input will be taken from JS
-    CLIENT = docker.from_env() # Be sure to comment this line if you do that
-    CONTAINER = CLIENT.containers.run("nikto-img", f"nikto -h {url}", network_mode='host', detach=True)
+    # Be sure to comment this line if you do that
     
     init_log()
     logging.basicConfig(filename=log_dir / LOGNAME, filemode='a', level=logging.INFO)
 
-    for line in CONTAINER.logs(stream=True):
-        logging.info(line.strip().decode('utf-8')) # To have clean logs
+    # for line in CONTAINER.logs(stream=True):
+    #     logging.info(line.strip().decode('utf-8')) # To have clean logs
     
     read_log()
     extract_links()
