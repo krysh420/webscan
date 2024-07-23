@@ -87,7 +87,7 @@ def main():
     read_config() # Setup will not run if config not present
 # You change the client path by uncommenting the line below and putting your address to 
     # client = docker.DockerClient(base_url='unix://var/run/docker.sock')
-    url = "127.0.0.1:5000"
+    url = "127.0.0.1:5000" # Input will be taken from JS
     CLIENT = docker.from_env() # Be sure to comment this line if you do that
     CONTAINER = CLIENT.containers.run("nikto-img", f"nikto -h {url}", network_mode='host', detach=True)
     
