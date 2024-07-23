@@ -87,7 +87,8 @@ def read_config():
 # Function to manage Podman
 def podman_run(command):
     try:
-        CLIENT = PodmanClient(base_url="unix:///run/user/1000/podman/podman.sock")
+# You can change the url if your podman is installed elsewhere
+        CLIENT = PodmanClient(base_url="unix:///run/user/1000/podman/podman.sock") 
         CONTAINER = CLIENT.containers.create(
             IMG_NAME,
             command=command,
@@ -128,9 +129,15 @@ def main():
     init_log()
     logging.basicConfig(filename=log_dir / LOGNAME, filemode='a', level=logging.INFO)
 
-    # for line in CONTAINER.logs(stream=True):
-    #     logging.info(line.strip().decode('utf-8')) # To have clean logs
-    
+    log = ''
+    if ENGINE.lower() == "docker":
+        log = docker_run(f"nikto -h {url}")
+    elif ENGINE.lower() == "podman":
+        log = podman_run(f"nikto -h {url}")
+
+    for line in log(stream=True):
+        logging.info(line.strip().decode('utf-8')) # To have clean logs
+
     read_log()
     extract_links()
 
