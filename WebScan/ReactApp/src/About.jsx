@@ -1,11 +1,11 @@
-
-import Navbar from "./NavBar"
+import Navbar from "./NavBar" 
 
 export default function About(){
+    
     return (
         <>
         <Navbar/>
-            <div className="container my-5 fs-5 d-flex align-items-center" style={{height:"500px", textAlign:"justify"}}>
+            <div className="container my-5 fs-5 d-flex align-items-center" id="AbtSec" style={{height:"500px", textAlign:"justify"}}>
             Vulnerabilities in apps are a significant issue due to their potential to expose sensitive user data and disrupt services. Flaws in app design can be exploited by attackers to gain unauthorized access, leading to data breaches, financial loss, and privacy violations. With apps being integral to personal and business operations, any weakness can be a gateway for cyber threats.
 
             <br /><br />

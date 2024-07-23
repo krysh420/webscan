@@ -2,13 +2,15 @@ import styles from "./Home.module.css"
 import {getLogs,getResLogs} from "../Utils/FetchLogs"
 import { useEffect, useState } from "react"
 import IndLogs from "./IndLog"
-
+import Loading from "./Loading"
+import LogsError from "./LogsError"
 
 export default function Logs() {
-    const [Logs, setLogs] = useState([])
-    const [ResLogs, setResLogs] = useState([])
+    const [Logs, setLogs] = useState(null)
+    const [ResLogs, setResLogs] = useState(null)
+    const [loading, setLoading] = useState(true);
 
-
+    // const logs = []
     const fetchLogs = async() => {
         const data = await getLogs()
         setLogs(data)
@@ -20,10 +22,24 @@ export default function Logs() {
         setResLogs(data)
     }
     useEffect(() => {
-      fetchLogs()
-      fetchResLogs()
+      try {
+        fetchLogs()
+        fetchResLogs()
+      } catch (error) {
+          return <LogsError/> 
+        }
+        finally{
+            setLoading(false)
+        }
     }, [])
     
+    if (loading) {
+        return  <Loading/>
+    }
+    
+    if (!Logs || !ResLogs) {
+        return <div><h2>Results</h2><p className="fs-5">No data available</p></div>;
+    }
     return (
         <>
             <div>

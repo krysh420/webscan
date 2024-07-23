@@ -1,5 +1,5 @@
 .cardStyleResult {
-    max-width: inherit;
+    max-width: 350px;
     color: #00245a;
     background-color: #dfedff;
     border: 1.5px solid #003678;
@@ -21,9 +21,6 @@
 .cardStyleLogs:hover {
     cursor: pointer;
     background-color: #ffc107
-}
-.style{
-    background-color: #4c6185;
 }
 
 .inputDark{
@@ -53,4 +50,18 @@
 
 .inputLight::placeholder{
     color:grey
+}
+
+
+
+.cardStyleError {
+    max-width: 255px;
+    color: #ffeeee;
+    background-color: #fd5c6c;
+    border: 1.5px solid #5a0000;
+}
+
+.cardStyleError:hover {
+    cursor: pointer;
+    background-color: #ec4657;
 }
