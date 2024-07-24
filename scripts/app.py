@@ -31,7 +31,7 @@ log_dir.mkdir(parents=True, exist_ok=True)
 # Initialise log file.
 def init_log():
     with open(log_dir / LOGNAME, 'w') as f:
-        f.writelines('\nLOG ' + str(datetime.now()))
+        f.writelines('\nLOG ' + str(datetime.now()) + '\n')
 
 
 # Outputs contents of output.log in the terminal window. Each line of log is generated in this format: INFO:root:b'<output of command>\n'
@@ -88,37 +88,39 @@ def read_config():
 def podman_run(command):
     try:
 # You can change the url if your podman is installed elsewhere
-        CLIENT = PodmanClient(base_url="unix:///run/user/1000/podman/podman.sock") 
+        CLIENT = PodmanClient(base_url="unix:///run/user/1000/podman/podman.sock")
         CONTAINER = CLIENT.containers.create(
-            IMG_NAME,
+            image=IMG_NAME,
             command=command,
             network_mode='host',
             detach=True
         )
         CONTAINER.start()
         CONTAINER.wait()  # Wait for the container to complete
-        logs = CONTAINER.logs(stdout=True, stderr=True, stream=False)
-        return b''.join(logs).decode('utf-8').strip()
+
+        for line in CONTAINER.logs(stream=True):
+            logging.info(line.strip().decode('utf-8'))
     except Exception as e:
         print(f"An error occurred: {e}")
-        return str(e)    
+        return str(e)
 
 def docker_run(command):
     try:
 # You change the client path by uncommenting the line below and putting your address to 
         # CLIENT = docker.DockerClient(base_url='unix://var/run/docker.sock')
-        CLIENT = docker.from_env()
+        CLIENT = docker.from_env() # Be sure to comment this when you do so
         CONTAINER = CLIENT.containers.run(
-            IMG_NAME,
-            command, 
+            image=IMG_NAME, 
+            command=command, 
             network_mode='host', 
             detach=True
         )
-        logs = CONTAINER.logs(stdout=True, stderr=True, stream=False)
-        return b''.join(logs).decode('utf-8').strip()
+        for line in CONTAINER.logs(stream=True):
+            logging.info(line.strip().decode('utf-8'))
     except Exception as e:
-        print(F"An error occured: {e}")
-        return e        
+        print(f"An error occurred: {e}")
+        return str(e)
+ 
 
 
 def main():
@@ -127,23 +129,23 @@ def main():
     # Be sure to comment this line if you do that
     
     init_log()
-    logging.basicConfig(filename=log_dir / LOGNAME, filemode='a', level=logging.INFO)
+    logging.basicConfig(filename=log_dir / LOGNAME, filemode='a', level=logging.INFO, format='%(message)s')
 
-    log = ''
     if ENGINE.lower() == "docker":
-        log = docker_run(f"nikto -h {url}")
-    elif ENGINE.lower() == "podman":
-        log = podman_run(f"nikto -h {url}")
+        docker_run(f"nikto -h {url}")
 
-    for line in log(stream=True):
-        logging.info(line.strip().decode('utf-8')) # To have clean logs
+
+    elif ENGINE.lower() == "podman":
+        podman_run(["nikto", "-h", f"{url}"])
+
+    # for line in log:
+    #     logging.info(line) # To have clean logs
 
     read_log()
     extract_links()
 
 if __name__ == "__main__":
     main()
-    
     
 # PLAN FROM MY SIDE
 # 1. Automate testing [DONE]
@@ -153,7 +155,8 @@ if __name__ == "__main__":
 # 5. Let the clean log be sent to JS for display [DONE]
 # 6. Help with OpenAI integration to explain the vulnerabilities 
 # 7. Extract links from Nikto logs [DONE]
-# 8. Add support for podman
+# 8. Add support for podman [DONE]
 # 9. Ask user to give a part incase the default port is used already
-# 10. Add functionality to update the docker image
-# 11. Error and Exception handling 
+# 10. Add functionality to update the image [DONE in setup]
+# 11. Error and Exception handling [WORKING]
+# 12. Add user specific podman enabling warning
