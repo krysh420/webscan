@@ -229,7 +229,7 @@ if __name__ == "__main__":
 # 6. Make config file [DONE]
 # 7. Test run [DONE]
 # 8. Add image update functionality [DONE]
-# 9. Add full update functionality 
+# 9. Add full update functionality [DONE]
 # 10. Address sudo issue for docker [DONE WITH COMMENTS AND PROMPTS]
 # 11. Add headsup for pip not being installed in READ.md
 # 12. Check whether .config exists, also import variables from there to this if it exists [DONE]
