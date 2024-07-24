@@ -39,7 +39,7 @@ def init_log():
 def read_log():
     f = open(log_dir / LOGNAME, 'r')
     
-    x = f.readlines()
+    x = f.readlines() # Not needed now but still keeping
     filter = ["INFO:root:"]
     filtered = ''
     for i in x:
@@ -48,7 +48,7 @@ def read_log():
     
     f.close()
 
-
+# Extract link in a seperate file
 def extract_links():
     f = open('links.txt', 'w')
 
@@ -103,7 +103,8 @@ def podman_run(command):
     except Exception as e:
         print(f"An error occurred: {e}")
         return str(e)
-
+    
+# Function to manage Docker
 def docker_run(command):
     try:
 # You change the client path by uncommenting the line below and putting your address to 
@@ -120,26 +121,21 @@ def docker_run(command):
     except Exception as e:
         print(f"An error occurred: {e}")
         return str(e)
- 
 
 
 def main():
     read_config() # Setup will not run if config not present
     url = "127.0.0.1:5000" # Input will be taken from JS
-    # Be sure to comment this line if you do that
     
     init_log()
+    # Log configuration
     logging.basicConfig(filename=log_dir / LOGNAME, filemode='a', level=logging.INFO, format='%(message)s')
-
+    print("Scan in progress... Wait till its done.")
     if ENGINE.lower() == "docker":
         docker_run(f"nikto -h {url}")
 
-
     elif ENGINE.lower() == "podman":
         podman_run(["nikto", "-h", f"{url}"])
-
-    # for line in log:
-    #     logging.info(line) # To have clean logs
 
     read_log()
     extract_links()
