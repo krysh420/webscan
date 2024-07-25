@@ -13,6 +13,26 @@ from datetime import datetime
 # To check presence of configuration file
 from pathlib import Path
 
+# IGNORE (Colors)
+BLACK = '\033[30m'
+RED = '\033[31m'
+GREEN = '\033[32m'
+YELLOW = '\033[33m' # orange on some systems
+BLUE = '\033[34m'
+MAGENTA = '\033[35m'
+CYAN = '\033[36m'
+LIGHT_GRAY = '\033[37m'
+DARK_GRAY = '\033[90m'
+BRIGHT_RED = '\033[91m'
+BRIGHT_GREEN = '\033[92m'
+BRIGHT_YELLOW = '\033[93m'
+BRIGHT_BLUE = '\033[94m'
+BRIGHT_MAGENTA = '\033[95m'
+BRIGHT_CYAN = '\033[96m'
+WHITE = '\033[97m'
+
+RESET = '\033[0m' # called to return to standard terminal text color
+
 # Setting up dependencies
 def setup_req():
 # Defining name of image
@@ -26,11 +46,13 @@ def setup_req():
 # Using system() from os to check Operating System    
     PLATFORM = os_check()
     print("Detected OS: ", PLATFORM+"\n")
+    if PLATFORM.lower().strip() == "windows":
+        system('color')
 
 # Test for the engine
-    print("Make sure that you have downloaded and installed Docker or Podman (NOTE: Docker/Podman Desktop is not required). Setup cannot proceed without it.")
+    print(YELLOW + "Make sure that you have downloaded and installed Docker or Podman (NOTE: Docker/Podman Desktop is not required). Setup cannot proceed without it." + RESET)
     global ENGINE
-    ENGINE = input("Enter what did you install (Docker or Podman): ")
+    ENGINE = input(f"{BRIGHT_YELLOW}Enter what did you install (Docker or Podman):{RESET} ")
 
     while(True):
         if ENGINE.lower() == "docker":
@@ -40,104 +62,106 @@ def setup_req():
             system("podman run hello-world") # Could have used f"{engine} but if someone added something like dockman, it will just crash the program 
         
         else:
-            print("The given engine either does not exist or is not supported by this project at the moment.")
-            print("Terminating setup...")
+            print(RED + "The given engine either does not exist or is not supported by this project at the moment." + RESET)
+            print(BRIGHT_RED + "Terminating setup..." + RESET)
             quit()
 
         
-        test = input("Did the 'Hello from Docker' executed properly? [It will show hello from docker for both podman and docker] (Yes/No): ")
+        test = input(f"{BRIGHT_YELLOW}Did the 'Hello from Docker' executed properly? [It will show hello from docker for both podman and docker] (Yes/No):{RESET} ")
         if test.lower() == "yes":
-            print(f"{ENGINE.title()} has been succesfully installed.\n")
+            print(BRIGHT_GREEN + f"{ENGINE.title()} has been succesfully installed.\n" + RESET)
             break
 
         elif test.lower() == "no":
-            print(f"""Make sure {ENGINE.title()} is installed, its services are online and its added to PATH (More important for Windows users).
+            print(f"""{BLUE}Make sure {ENGINE.title()} is installed, its services are online and its added to PATH (More important for Windows users).
 Make sure you are connected to the internet.
 Make sure you have sufficient privileges. 
 Make sure your user is part of "docker" group if you are on Linux. Alternatively, you can run the python script as sudo, though it is not recommended.
-To add user to docker group, follow this guide: https://docs.docker.com/engine/install/linux-postinstall/
-Retry the test.  """)
-            print("The test will be run again. To stop, exit the setup using ctrl+c.\n")
+To add user to docker group, follow this guide: {RESET}{CYAN}https://docs.docker.com/engine/install/linux-postinstall/{RESET}{BLUE}
+Retry the test.{RESET}  """)
+            print(MAGENTA + "The test will be run again. To stop, exit the setup using ctrl+c.\n" + RESET)
         
         else:
-            print("Enter a valid response")
+            print(RED + "Enter a valid response" + RESET)
 
 # Installing Python modules
-    print("Installing required modules")
+    print(MAGENTA + "Installing required modules" + RESET)
     if (PLATFORM.lower()).rstrip() == "windows":
         system("python.exe -m pip install -r requirements.txt")
     else:
         system("python3 -m pip install -r requirements.txt") # Linux and MacOS have same way (God bless UNIX based OSes)
     
     while True:
-        module_install = input("Did all packages installed successfully? (Yes/No): ")
+        module_install = input(BRIGHT_YELLOW + "Did all packages installed successfully? (Yes/No): " + RESET)
         
         if module_install.lower() == "yes":
-            print("Setup will now continue...... \n")
+            print(BRIGHT_GREEN + "Setup will now continue...... \n" + RESET)
             break
-        elif module_install.lower() == "no": # This should not even be used now, its just a reminder to my old self. A reminder of my mistakes, my naivety
-            print("You can either retry using the setup or manually install packages by running 'pip install -r requirements.txt'. Make sure you have pip installed if you are a linux user. \nTo quit the setup, enter 'quit' in the prompt. Once installed, enter yes in the prompt. ")
-            print("Windows users need to ensure Python is added to path.")
-            print("Some Linux distros now also manage packages externally, for those, you can either install by adding --break-system-packages flag when running above command or by manually installing them using whatever package manager the distro is using. \nYour distro may also flag python and python3 as different, you can fix that by either editing this file and adding python3 or installing 'python-is-python3' using your package manager (eg: apt).")
-            try_again = input("Retry with --break-system-packages? [It should be harmless because this project does not use any package on which core features of Linux depend] (Yes/No): ")
+        elif module_install.lower() == "no":
+            print(f"""{BLUE}You can either retry using the setup or manually install packages by running {CYAN}'pip install -r requirements.txt'{BLUE}. Make sure you have pip installed if you are a linux user. \nTo quit the setup, enter 'quit' in the prompt. Once installed, enter yes in the prompt.
+Windows users need to ensure Python is added to path.
+Some Linux distros now also manage packages externally, for those, you can either install by adding --break-system-packages flag when running above command or by manually installing them using whatever package manager the distro is using. \n{RESET}""")
+            try_again = input(f"{BRIGHT_YELLOW}Retry with --break-system-packages? [It should be harmless because this project does not use any package on which core features of Linux depend and is running in a virtual env] (Yes/No):{RESET} ")
             
             if try_again.lower() == "yes":
             
                 system("pip install --break-system-packages -r requirements.txt")
             
             else:
-                print("Setup will now terminate. You can rerun the setup once all packages are installed...")
+                print(BRIGHT_RED + "Setup will now terminate. You can rerun the setup once all packages are installed..." + RESET)
                 quit()
         elif module_install.lower() == "quit":
-            print("Setup will now terminate. You can rerun the setup once all packages are installed...")
+            print(RED + "Setup will now terminate. You can rerun the setup once all packages are installed..." + RESET)
             quit()
         else:
-            print("Enter a valid option.\n")
+            print(RED + "Enter a valid option.\n" + RESET)
 
 # Building kali image with nikto.
-    print(f"Building {ENGINE.title()} image....")
+    print(f"{MAGENTA}Building {ENGINE.title()} image....{RESET}")
     while True:
         system(f"{ENGINE} build . -t {IMG_NAME}") # Thank the devs for making podman and docker commands similar
 
         img_install = popen(f'{ENGINE} run {IMG_NAME} echo "Success"').read() # Using echo to make sure image is installed
         if img_install == """Success\n""":
-            print("Image installation successful.\n") # Setup breaks out of loop only if image returns success
+            print(BRIGHT_GREEN + "Image installation successful.\n" + RESET) # Setup breaks out of loop only if image returns success
             break
 
         else:
-            print(f"It appears the image did not install properly. Make sure you have {ENGINE.title()} installed and running. Linux users can try running 'sudo service {ENGINE.lower()} start'. You can also build the image yourself by using '{ENGINE.lower()} build . -t {IMG_NAME}' Be sure to keep name of image {IMG_NAME} else the app will not work. ")
+            print(f"{BLUE}It appears the image did not install properly. Make sure you have {ENGINE.title()} installed and running.\nLinux users can try running {CYAN}'sudo service {ENGINE.lower()} start'{BLUE}. You can also build the image yourself by using {CYAN}'{ENGINE.lower()} build . -t {IMG_NAME}'{BLUE} Be sure to keep name of image {IMG_NAME} else the app will not work.{RESET} ")
             retry = input("Retry? (Yes/No): ") # Just read the else print statement. Its pretty self-explainatory
             if retry.lower() == "no":
-                break # Or if you give up
+                print(BRIGHT_RED + "Exiting setup. Run setup again after building image." + RESET)
+                quit() # Or if you give up
 
-    print("\nAll requirements have been successfully installed.\n")
-    print("Creating up config file....")
+    print(BRIGHT_GREEN + "\nAll requirements have been successfully installed.\n" + RESET)
+    print(MAGENTA + "Creating up config file...." + RESET)
     config_file() # Generating config file           
-    print("\nApp is now ready to use. You can run 'test.py' to make sure everything is running \n")
+    print(BRIGHT_YELLOW + "\nApp is now ready to use. You can run 'test.py' to make sure everything is running \n" + RESET)
 
 def update_full(): # Update entire project 
-    print("Performing full update")
+    print(BRIGHT_YELLOW + "Performing full update")
     print("Pulling files from Github...")
+    system('git init')
     system('git pull')
     print("Updating image...")
     update_img()
-    print("Recreating configuration file....")
+    print("Recreating configuration file...." + RESET)
     config_file()
 
   
 
 def update_img(): # Remove old image, create new one
 # Image removal
-    print("Removing old image....")
+    print(BRIGHT_YELLOW + "Removing old image....")
     system(f'{ENGINE} rmi -f {IMG_NAME}')
     
 # Image rebuid    
-    print("Making new image...")
+    print("Making new image..." + RESET)
     system(f'{ENGINE} build . -t {IMG_NAME}')
     
 # Testing if image rebuilt    
     if popen(f'{ENGINE} run {IMG_NAME} echo "Success"').read() == "Success\n":
-        print("Success")
+        print(BRIGHT_GREEN + "Success" + RESET)
     else:
         print("Fail")
 
@@ -149,31 +173,30 @@ ENGINE: {ENGINE.lower()}
 IMAGE: {IMG_NAME}
 LAST_UPDATE: {datetime.now()}'''
     f.writelines(config)
-    print("Configuration file generated.")
+    print(BRIGHT_YELLOW + "Configuration file generated." + RESET)
     f.close()
 
 
 def disclaimer(): # We aint responsible if you try to run this on Microsoft servers or smthn
-    print('''**Disclaimer**
-          
-The tool used in this project is intended for use by professionals.
+    print(f'''{BRIGHT_RED}**Disclaimer** {RESET}
+{YELLOW}          
 Unauthorized use of this tool on any site without explicit permission from the site owner is strictly prohibited. 
-This project is released under the MIT License. By using this tool, you agree that the creators of this project cannot be held liable for any unethical or unauthorized use. 
-Users are solely responsible for ensuring that their use of this tool complies with all applicable laws and regulations.''')
+This project is released under the {MAGENTA}MIT License.{YELLOW} By using this tool, you agree that the creators of this project {BRIGHT_RED}cannot{YELLOW} be held liable for any unethical or unauthorized use. 
+Users are solely responsible for ensuring that their use of this tool complies with all applicable laws and regulations.{RESET}''')
 
 
 def main():
-    print('''\nChoose what you want to do:
-1. Install dependencies
-2. Check for Updates
+    print(f'''\n{BRIGHT_YELLOW}Choose what you want to do:
+{GREEN}1. Install dependencies
+{YELLOW}2. Check for Updates
 3. Update only image 
-4. Disclaimer
-5. Exit
-           ''')
+{BRIGHT_RED}4. Disclaimer
+{BRIGHT_CYAN}5. Exit
+           {RESET}''')
     
     option = input("Enter your choice: ")
     if (option not in ('1','2','3','4','5')): # To handle people typing "yes" as an option to prompt
-        option = int(input(("Enter a valid choice (1-5)")))
+        option = int(input((RED + "Enter a valid choice (1-5)" + RESET)))
     
     elif option == '1':
         setup_req()
@@ -191,13 +214,13 @@ def main():
         quit()
     
 if __name__ == "__main__":
-    print('\nWelcome to Webscan Setup and Utility Software')
-    print('Make sure you have read README.md to avoid errors while setting up.')
+    print(BRIGHT_MAGENTA + '\nWelcome to Webscan Setup and Utility Software')
+    print('Make sure you have read README.md to avoid errors while setting up.' + RESET)
     CONF_DIR = Path('.config')
-    print("Checking for configuration file....")
+    print(BLUE + "Checking for configuration file...." + RESET)
     while(True):
         if CONF_DIR.is_file(): # If config file is already present, call main function
-            print("Configuration file found!")
+            print(GREEN + "Configuration file found!" + RESET)
             f = open(".config","r") # Open config file
             lines = f.readlines() 
             for i in lines: # Store values from config file into their respective (global) variables
@@ -212,10 +235,10 @@ if __name__ == "__main__":
                     IMG_NAME = i.replace("IMAGE: ",  '')
                     IMG_NAME = IMG_NAME.replace("\n",'')
                 f.close()
-            print(f'OS: {PLATFORM}',f'\nENGINE: {ENGINE}',f'\nIMAGE: {IMG_NAME}')
+            print(f'{MAGENTA}OS: {PLATFORM}{RESET}',f'\n{GREEN}ENGINE: {ENGINE}{RESET}',f'\n{BRIGHT_BLUE}IMAGE: {IMG_NAME}{RESET}')
             main()
         else:
-            print("Configuration file not found. Executing function to set up dependencies...") # Else if no config file, call setup function to install deps
+            print(RED + "Configuration file not found. Executing function to set up dependencies..."+ RESET) # Else if no config file, call setup function to install deps
             setup_req()
             disclaimer() # Must show disclaimer atleast once
 
