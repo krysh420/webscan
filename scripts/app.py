@@ -155,7 +155,7 @@ def main():
         docker_run(f"nikto -h {url}")
 
     elif ENGINE.lower() == "podman":
-        podman_run(["nikto", "-h", f"{url}"])
+        podman_run(["nikto", "-h", url])
 
     read_log()
     extract_links()
