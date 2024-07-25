@@ -21,12 +21,6 @@ from re import findall
 # Global variables
 global ENGINE, PLATFORM, IMG_NAME
 
-# Declare log name
-LOGNAME = 'LOG-'+str(datetime.now())+'.log' 
-
-# Declaring log path
-log_dir = Path('../logs')
-log_dir.mkdir(parents=True, exist_ok=True)
 
 # IGNORE (Colors)
 BLACK = '\033[30m'
@@ -99,7 +93,7 @@ def read_config():
                 IMG_NAME = i.replace("IMAGE: ",  '')
                 IMG_NAME = IMG_NAME.replace("\n",'')
         f.close()
-        print(f'{MAGENTA}OS: {PLATFORM}{RESET}',f'\n{GREEN}ENGINE: {ENGINE}{RESET}',f'\n{BRIGHT_BLUE}IMAGE: {IMG_NAME}{RESET}')
+        print(f'{MAGENTA}OS: {BRIGHT_MAGENTA}{PLATFORM}{RESET}',f'\n{GREEN}ENGINE: {BRIGHT_GREEN}{ENGINE}{RESET}',f'\n{BLUE}IMAGE: {BRIGHT_BLUE}    {IMG_NAME}{RESET}')
     else: # Else ask user to run setup script and exit the app
         print(RED + "Configuration file not present. Run setup script to make a new one.\nExiting app...." + RESET)
         quit()
@@ -155,13 +149,19 @@ def main():
         docker_run(f"nikto -h {url}")
 
     elif ENGINE.lower() == "podman":
-        podman_run(["nikto", "-h", f"{url}"])
+        podman_run(["nikto", "-h", url])
 
     read_log()
     extract_links()
 
     print(BRIGHT_GREEN + "Scan completed, Log saved in logs folder." + RESET)
 if __name__ == "__main__":
+    # Declare log name
+    LOGNAME = 'LOG-'+str(datetime.now())+'.log' 
+
+    # Declaring log path
+    log_dir = Path('../logs')
+    log_dir.mkdir(parents=True, exist_ok=True)
     main()
     
 # PLAN FROM MY SIDE
