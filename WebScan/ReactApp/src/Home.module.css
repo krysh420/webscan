@@ -1,0 +1,67 @@
+.cardStyleResult {
+    max-width: 350px;
+    color: #00245a;
+    background-color: #dfedff;
+    border: 1.5px solid #003678;
+}
+
+.cardStyleResult:hover {
+    cursor: pointer;
+    background-color: #c6e0ff
+}
+
+
+.cardStyleLogs {
+    max-width: inherit;
+    color: #3d2e00;
+    background-color: #ffcd37;
+    border: 1.5px solid #3b2d00;
+}
+
+.cardStyleLogs:hover {
+    cursor: pointer;
+    background-color: #ffc107
+}
+
+.inputDark{
+    background-color:#4c6185;
+    color:#ffffff
+
+}
+.inputDark:focus{
+    background-color:#4c6185;
+    color:#ffffff;
+    outline: none;
+    box-shadow: none ;
+}
+
+.inputDark::placeholder{
+    color:#ffffff
+}
+
+.inputLight{
+    background-color:#ffffff;
+    color:#ffffff;
+}
+.inputLight:focus{
+    outline: none;
+    box-shadow: none ;
+}
+
+.inputLight::placeholder{
+    color:grey
+}
+
+
+
+.cardStyleError {
+    max-width: 255px;
+    color: #ffeeee;
+    background-color: #fd5c6c;
+    border: 1.5px solid #5a0000;
+}
+
+.cardStyleError:hover {
+    cursor: pointer;
+    background-color: #ec4657;
+}
