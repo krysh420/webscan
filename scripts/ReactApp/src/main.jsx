@@ -6,17 +6,17 @@ import {
 } from "react-router-dom";
 import Home from "./Home";
 import About from "./About";
-
+import ModeState from "../context/mode/modeState";
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home/>
+    element: <ModeState><Home/></ModeState>
   },
   {
     path: "/about",
-    element: <About/>
+    element: <ModeState><About/></ModeState>
   },
 ]);
 

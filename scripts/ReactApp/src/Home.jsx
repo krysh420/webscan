@@ -1,8 +1,17 @@
+import { useContext, useEffect } from "react";
 import Form from "./Form";
 import NavBar from "./NavBar";
+import ModeContext from "../context/mode/modeContext";
+
 
 
 export default function Home(){
+  const context = useContext(ModeContext)
+  const {OnReloadMode} = context
+  useEffect(() => {
+    OnReloadMode()
+  }, [])
+  
   
   return (
     <>

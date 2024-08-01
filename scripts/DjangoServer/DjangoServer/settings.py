@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# csrf and cors configurations
 CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_HTTPONLY = True
 

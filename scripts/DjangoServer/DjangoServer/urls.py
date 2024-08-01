@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+
+# declaring the 2 main urls of django server
+
 urlpatterns = [
     path('', include("APIReact.urls")),
     path('admin/', admin.site.urls),

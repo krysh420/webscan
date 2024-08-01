@@ -1,5 +1,5 @@
 import styles from "./Home.module.css"
-import {getLogs,getResLogs} from "../Utils/FetchLogs"
+import {getLogs} from "../Utils/FetchLogs"
 import { useEffect, useState } from "react"
 import IndLogs from "./IndLog"
 import Loading from "./Loading"
@@ -7,24 +7,16 @@ import LogsError from "./LogsError"
 
 export default function Logs() {
     const [Logs, setLogs] = useState(null)
-    const [ResLogs, setResLogs] = useState(null)
     const [loading, setLoading] = useState(true);
 
-    // const logs = []
     const fetchLogs = async() => {
         const data = await getLogs()
-        setLogs(data)
+        setLogs(data.logs)
     }
 
-
-    const fetchResLogs = async() => {
-        const data = await getResLogs()
-        setResLogs(data)
-    }
     useEffect(() => {
       try {
         fetchLogs()
-        fetchResLogs()
       } catch (error) {
           return <LogsError/> 
         }
@@ -37,11 +29,12 @@ export default function Logs() {
         return  <Loading/>
     }
     
-    if (!Logs || !ResLogs) {
+    if (!Logs) {
         return <div><h2>Results</h2><p className="fs-5">No data available</p></div>;
     }
     return (
         <>
+        
             <div>
                 <h2>Results</h2>
                 {
@@ -61,7 +54,9 @@ export default function Logs() {
                     </div>
                 </div>
                 :Logs.map((item,index)=>{ 
-                    return <IndLogs key={index} log={item.log} resLog={ResLogs[index].ResLog}/>
+                    return <IndLogs key={index} log={item} 
+                    // resLog={ResLogs[index].ResLog}
+                    />
                 })}  
             </div>
         </>
