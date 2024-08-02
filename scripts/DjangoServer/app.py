@@ -146,17 +146,22 @@ def docker_run(command):
 def main_function():
     read_config() # Setup will not run if config not present
     url = "127.0.0.1:5000" # Input will be taken from JS
-    
+    ssl = False
     init_log()
     # Log configuration
     logging.basicConfig(filename=log_dir / LOGNAME, filemode='a', level=logging.INFO, format='%(message)s')
     print(BRIGHT_BLUE + "Scan in progress... Wait till its done." + RESET)
     if ENGINE.lower() == "docker":
-        docker_run(f"nikto -h {url}")
+        if ssl == True:
+            docker_run(f"nikto -h {url} -ssl")
+        else:   
+            docker_run(f"nikto -h {url}")
 
     elif ENGINE.lower() == "podman":
-        podman_run(["nikto", "-h", url])
-
+        if ssl == False:
+            podman_run(["nikto", "-h", url, "--ssl"])
+        else:
+            podman_run(["nikto", "-h", url])
     read_log()
     extract_links()
 
