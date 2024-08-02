@@ -32,11 +32,11 @@ CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_HTTPONLY = True
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:5173',
+    'http://localhost:2000',
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
+    "http://localhost:2000",
 ]
 
 CORS_ALLOW_CREDENTIALS = True

@@ -12,8 +12,20 @@ const ModeState = (props) => {
             setMode('dark')
             document.body.style.backgroundColor="#001a43"
             document.body.style.color="#dee9fa"
-            if ( document.getElementById("exampleFormControlTextarea1")) {
-                document.getElementById("exampleFormControlTextarea1").className=`form-control ${styles.inputDark}`
+            if ( document.getElementById("floatingInput")&&document.getElementsByClassName("form-select")[0]) {
+                document.getElementById("floatingInput").className=`form-control ${styles.inputDark}`
+            }
+            if (document.getElementsByClassName("form-select")[0]) {
+                document.getElementsByClassName("form-select")[0].className=`form-select ${styles.inputDark}`
+            }
+            if(document.getElementById("option1")){
+                document.getElementById("option1").style.color="#000000"
+            }
+            if(document.getElementById("option2")){
+                document.getElementById("option2").style.color="#000000"
+            }
+            if(document.getElementById("option3")){
+                document.getElementById("option3").style.color="#000000"
             }
         }
         else if(mode==='light'){
@@ -21,8 +33,20 @@ const ModeState = (props) => {
             setMode('dark')
             document.body.style.backgroundColor="#001a43"
             document.body.style.color="#dee9fa"
-            if (document.getElementById("exampleFormControlTextarea1")) {
-                document.getElementById("exampleFormControlTextarea1").className=`form-control ${styles.inputDark}`
+            if ( document.getElementById("floatingInput")&&document.getElementsByClassName("form-select")[0]) {
+                document.getElementById("floatingInput").className=`form-control ${styles.inputDark}`
+            }
+            if (document.getElementsByClassName("form-select")[0]) {
+                document.getElementsByClassName("form-select")[0].className=`form-select ${styles.inputDark}`
+            }
+            if(document.getElementById("option1")){
+                document.getElementById("option1").style.color="#000000"
+            }
+            if(document.getElementById("option2")){
+                document.getElementById("option2").style.color="#000000"
+            }
+            if(document.getElementById("option3")){
+                document.getElementById("option3").style.color="#000000"
             }
         }
         else{
@@ -30,8 +54,20 @@ const ModeState = (props) => {
             setMode('light')
             document.body.style.backgroundColor="white"
             document.body.style.color="black"
-            if (document.getElementById("exampleFormControlTextarea1")) {
-                document.getElementById("exampleFormControlTextarea1").className=`form-control ${styles.inputLight}`
+            if ( document.getElementById("floatingInput")&&document.getElementsByClassName("form-select")[0]) {
+                document.getElementById("floatingInput").className=`form-control ${styles.inputLight}`
+            }
+            if (document.getElementsByClassName("form-select")[0]) {
+                document.getElementsByClassName("form-select")[0].className=`form-select ${styles.inputLight}`
+            }
+            if(document.getElementById("option1")){
+                document.getElementById("option1").style.color="#000000"
+            }
+            if(document.getElementById("option2")){
+                document.getElementById("option2").style.color="#000000"
+            }
+            if(document.getElementById("option3")){
+                document.getElementById("option3").style.color="#000000"
             }
         }
 
@@ -43,16 +79,40 @@ const ModeState = (props) => {
             setMode('light')
             document.body.style.backgroundColor="white"
             document.body.style.color="black"
-            if ( document.getElementById("exampleFormControlTextarea1")) {
-                document.getElementById("exampleFormControlTextarea1").className=`form-control ${styles.inputLight}`
+            if ( document.getElementById("floatingInput")&&document.getElementsByClassName("form-select")[0]) {
+                document.getElementById("floatingInput").className=`form-control ${styles.inputLight}`
+            }
+            if (document.getElementsByClassName("form-select")[0]) {
+                document.getElementsByClassName("form-select")[0].className=`form-select ${styles.inputLight}`
+            }
+            if(document.getElementById("option1")){
+                document.getElementById("option1").style.color="#000000"
+            }
+            if(document.getElementById("option2")){
+                document.getElementById("option2").style.color="#000000"
+            }
+            if(document.getElementById("option3")){
+                document.getElementById("option3").style.color="#000000"
             }
         }
         else if(mode==='dark'){
             setMode('dark')
             document.body.style.backgroundColor="#001a43"
             document.body.style.color="#dee9fa"
-            if (document.getElementById("exampleFormControlTextarea1")) {
-                document.getElementById("exampleFormControlTextarea1").className=`form-control ${styles.inputDark}`
+            if ( document.getElementById("floatingInput")&&document.getElementsByClassName("form-select")[0]) {
+                document.getElementById("floatingInput").className=`form-control ${styles.inputDark}`
+            }
+            if (document.getElementsByClassName("form-select")[0]) {
+                document.getElementsByClassName("form-select")[0].className=`form-select ${styles.inputDark}`
+            }
+            if(document.getElementById("option1")){
+                document.getElementById("option1").style.color="#000000"
+            }
+            if(document.getElementById("option2")){
+                document.getElementById("option2").style.color="#000000"
+            }
+            if(document.getElementById("option3")){
+                document.getElementById("option3").style.color="#000000"
             }
         }
         

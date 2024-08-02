@@ -26,6 +26,7 @@ only_logs=[]
 for i in content:
     if i[0]=="+":
         start_value=content.index(i)
+        break
 
 # for loop, which will only store logs and not the starter boilerplate content
 for i in range(start_value,log_file_length):
@@ -38,8 +39,14 @@ file.close()
 def get_URL(request):
     if request.method == "POST":
         data = request.body.decode('utf-8')
-        url = json.loads((data))
-        url_for_testing = url["url"]
+        data = json.loads((data))
+        data = data['Data']
+        url_to_be_tested = data['URL']
+        is_https = data['is_https']
+        if is_https=="True":
+            is_https=True
+        else:
+            is_https=False
     return JsonResponse({"message":"there is nothing here"})
 
 

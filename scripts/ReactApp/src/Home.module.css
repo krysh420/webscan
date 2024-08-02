@@ -24,33 +24,27 @@
 }
 
 .inputDark{
-    background-color:#4c6185;
+    background-color: transparent;
     color:#ffffff
 
 }
 .inputDark:focus{
-    background-color:#4c6185;
+    background-color: transparent;
     color:#ffffff;
     outline: none;
     box-shadow: none ;
 }
-
-.inputDark::placeholder{
-    color:#ffffff
-}
-
+ 
 .inputLight{
     background-color:#ffffff;
-    color:#ffffff;
+    color: #000000;
 }
+
 .inputLight:focus{
     outline: none;
     box-shadow: none ;
 }
 
-.inputLight::placeholder{
-    color:grey
-}
 
 
 
@@ -65,5 +59,3 @@
     cursor: pointer;
     background-color: #ec4657;
 }
-
-

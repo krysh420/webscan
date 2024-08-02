@@ -25,7 +25,7 @@ global ENGINE, PLATFORM, IMG_NAME
 LOGNAME = 'LOG-' + datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + '.log'
 
 # Declaring log path
-log_dir = Path('../logs')
+log_dir = Path('../../logs')
 log_dir.mkdir(parents=True, exist_ok=True)
 
 # IGNORE (Colors)
@@ -143,7 +143,7 @@ def docker_run(command):
         return str(e)
 
 
-def main():
+def main_function():
     read_config() # Setup will not run if config not present
     url = "127.0.0.1:5000" # Input will be taken from JS
     
@@ -161,8 +161,7 @@ def main():
     extract_links()
 
     print(BRIGHT_GREEN + "Scan completed, Log saved in logs folder." + RESET)
-if __name__ == "__main__":
-    main()
+
     
 # PLAN FROM MY SIDE
 # 1. Automate testing [DONE]

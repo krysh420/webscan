@@ -35,8 +35,9 @@ export default function Logs() {
     return (
         <>
         
-            <div>
-                <h2>Results</h2>
+            <div className="px-4 mt-5" style={{border:"1px solid #dddddd", borderRadius:"10px",width:"48vw", boxShadow:"0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 6px 0 rgba(0, 0, 0, 0.19)"}}>
+                <h2 className="text-center" style={{margin:"40px 0px 0px 0px"}}>Results</h2>
+                <div style={{overflowY:"scroll", maxHeight:"54vh", margin:"20px 10px"}}>
                 {
                 Logs.length===0?
                 <div 
@@ -54,10 +55,9 @@ export default function Logs() {
                     </div>
                 </div>
                 :Logs.map((item,index)=>{ 
-                    return <IndLogs key={index} log={item} 
-                    // resLog={ResLogs[index].ResLog}
-                    />
+                    return <IndLogs key={index} log={item}/>
                 })}  
+                </div>
             </div>
         </>
     )

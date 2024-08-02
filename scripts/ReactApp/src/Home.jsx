@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import Form from "./Form";
 import NavBar from "./NavBar";
 import ModeContext from "../context/mode/modeContext";
+import Logs from "./AllLogs";
 
 
 
@@ -17,9 +18,12 @@ export default function Home(){
     <>
     <div id="body" style={{height:"100vh"}}>
     <NavBar/>
-    <div className="container" style={{ marginTop: "100px" }}>
-      <h1 className="text-center mb-5">WebScan - Web Vulnerability Scanner</h1>
-      <Form/>
+    <div className="container" style={{ marginTop: "40px" }}>
+      <h1 className="text-center">WebScan - Web Vulnerability Scanner</h1>
+      <div className="d-flex justify-content-between">
+        <Logs/>
+        <Form/>
+      </div>
     </div>
     </div>
     </>
