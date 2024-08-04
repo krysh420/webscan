@@ -71,7 +71,7 @@ def read_log():
 # Extract link in a seperate file
 def extract_links():
     f = open('links.txt', 'w')
-
+    f.write("")
     with open(log_dir / LOGNAME) as file:
         for line in file:
             urls = findall(r'https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', line)
@@ -81,11 +81,11 @@ def extract_links():
 
 def read_config():
     print(BLUE + "Checking for configuration file...." + RESET)
-    CONF_DIR = Path('.config')
+    CONF_DIR = Path('../.config')
 
     if CONF_DIR.is_file(): # If config file is already present, call main function
         print(GREEN + "Configuration file found!" + RESET)
-        f = open(".config","r") # Open config file
+        f = open(CONF_DIR,"r") # Open config file
         lines = f.readlines() 
         for i in lines: # Store values from config file into their respective (global) variables
             global PLATFORM, ENGINE, IMG_NAME 
@@ -143,10 +143,8 @@ def docker_run(command):
         return str(e)
 
 
-def main_function():
+def main_function(ssl,url):
     read_config() # Setup will not run if config not present
-    url = "127.0.0.1:5000" # Input will be taken from JS
-    ssl = False
     init_log()
     # Log configuration
     logging.basicConfig(filename=log_dir / LOGNAME, filemode='a', level=logging.INFO, format='%(message)s')
@@ -154,7 +152,7 @@ def main_function():
     if ENGINE.lower() == "docker":
         if ssl == True:
             docker_run(f"nikto -h {url} -ssl")
-        else:   
+        else:  
             docker_run(f"nikto -h {url}")
 
     elif ENGINE.lower() == "podman":
@@ -166,6 +164,7 @@ def main_function():
     extract_links()
 
     print(BRIGHT_GREEN + "Scan completed, Log saved in logs folder." + RESET)
+    
 
     
 # PLAN FROM MY SIDE

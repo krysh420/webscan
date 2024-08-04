@@ -14,10 +14,9 @@ export default function Form(){
   const handleSubmit = async() => {
     await fetch("http://127.0.0.1:8000/getURL",{
       method:"POST",
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': getCSRFToken()
-    },
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCSRFToken(),
+      'mode': "no-cors",
       body: JSON.stringify({Data})
     })
   }

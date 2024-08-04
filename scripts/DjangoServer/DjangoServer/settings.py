@@ -35,15 +35,14 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:2000',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:2000",
-]
+CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_HEADERS = [
     "Content-Type",
-    'X-CSRFToken'
+    'X-CSRFToken',
+    'Access-Control-Allow-Origin'
 ]
 
 # Application definition
