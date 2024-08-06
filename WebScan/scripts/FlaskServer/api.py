@@ -6,9 +6,9 @@ from flask import Flask,jsonify,request
 app = Flask(__name__)
 CORS(app)
 
-# LOGNAME = 'LOG-' + datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + '.log'
-# LOG_PATH = fr"../../logs/{LOGNAME}"
-LOG_PATH = fr"../../logs/LOG-2024-08-05_19-01-10.log"
+LOGNAME = 'LOG-' + datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + '.log'
+LOG_PATH = fr"../../logs/{LOGNAME}"
+# LOG_PATH = fr"../../logs/LOG-2024-08-05_19-01-10.log"
 
 def logs():
     try:

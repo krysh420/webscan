@@ -15,7 +15,6 @@ from pathlib import Path
 
 import subprocess
 from time import sleep
-from ReactApp.utitlity import run_react
 
 # IGNORE (Colors)
 BLACK = '\033[30m'
@@ -156,14 +155,13 @@ def update_full(): # Update entire project
     
 def run_guiApp():
     # Start the React app
-    command_react = 'cd ReactApp && start cmd /k npm run dev'
-    command_django = 'cd FlaskServer && start cmd /k python api.py'
-    
+    title="FLASK"
 
     # Wait for both processes to complete
     try:
-       subprocess.run(command_django,shell=True)
-       subprocess.run(command_react,shell=True)
+       subprocess.run('cd ReactApp && start cmd /k npm run dev',shell=True)
+       subprocess.run(f'start cmd /k "flask.bat"',shell=True)
+       
     except KeyboardInterrupt:
         print("Shutting down servers...")
     
@@ -239,12 +237,12 @@ def main():
 if __name__ == "__main__":
     print(BRIGHT_MAGENTA + '\nWelcome to Webscan Setup and Utility Software')
     print('Make sure you have read README.md to avoid errors while setting up.' + RESET)
-    CONF_DIR = Path('.config')
+    CONF_DIR = Path('../.config')
     print(BLUE + "Checking for configuration file...." + RESET)
     while(True):
         if CONF_DIR.is_file(): # If config file is already present, call main function
             print(GREEN + "Configuration file found!" + RESET)
-            f = open(".config","r") # Open config file
+            f = open("../.config","r") # Open config file
             lines = f.readlines() 
             for i in lines: # Store values from config file into their respective (global) variables
                 global PLATFORM, ENGINE, IMG_NAME 

@@ -18,6 +18,8 @@ from datetime import datetime
 # To extract links from logs
 from re import findall 
 
+import subprocess
+from os import system
 # Global variables
 global ENGINE, PLATFORM, IMG_NAME
 
@@ -164,6 +166,10 @@ def main_function(ssl,url):
     extract_links()
 
     print(BRIGHT_GREEN + "Scan completed, Log saved in logs folder." + RESET)
+    title="FLASK"
+    system(f'taskkill /F /FI "WINDOWTITLE eq {title}*"')
+    subprocess.run('cd ReactApp && start cmd /k npm run dev',shell=True)
+    subprocess.run(f'start cmd /k "flask.bat"',shell=True)
     
 
     
