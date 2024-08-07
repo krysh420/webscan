@@ -6,7 +6,7 @@ import styles from "./Home.module.css"
 export default function IndLogs(props){
     // const [CurrentLink, setCurrentLink] = useState(null)
     // const getLink = async(vul) => {
-    //     const resp = await (await fetch(`https://www.googleapis.com/customsearch/v1?key=AIzaSyBmoeRkLZTNhzoyLW8bCMZ_eJKhlWaw8b0&cx=e72555cfa1c7e46ee&q=${vul}`,{
+    //     const resp = await (await fetch(`https://www.googleapis.com/customsearch/v1?key=KEY&q=${vul}`,{
     //         method:'GET',
     //         headers:{
     //             'Content-Type':'application/json'
