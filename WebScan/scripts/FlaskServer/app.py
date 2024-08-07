@@ -165,11 +165,36 @@ def main_function(ssl,url):
     read_log()
     extract_links()
 
+        #opening the files to be read
+    LOG_PATH = fr"../../logs/{LOGNAME}"
+    file = open(LOG_PATH,'r')
+    content = file.readlines()
+    # some declarations for loop
+    only_logs=[]
+    start_value=0
+    stop_value=0
+    for i in content:
+        if("+ Server" in i):
+            start_value=content.index(i)+1
+        elif("+ ERROR" in i or "+ Scan terminated:" in i):
+            stop_value=content.index(i)
+            break
+        else:
+            continue
+    # for loop, which will only store logs and not the starter boilerplate content
+    for i in range(start_value,stop_value):
+        if "See:" in content[i]:
+            index=content[i].find("See:")
+            content[i]=content[i].replace(content[i][index::],"")
+            only_logs.append(content[i])
+        if "+" or "/:" in content[i]:
+            content[i]=content[i].replace("+","")
+            content[i]=content[i].replace("/:","")
+            only_logs.append(content[i])
+    file.close()
     print(BRIGHT_GREEN + "Scan completed, Log saved in logs folder." + RESET)
-    title="FLASK"
-    system(f'taskkill /F /FI "WINDOWTITLE eq {title}*"')
-    subprocess.run('cd ReactApp && start cmd /k npm run dev',shell=True)
-    subprocess.run(f'start cmd /k "flask.bat"',shell=True)
+    return only_logs
+
     
 
     

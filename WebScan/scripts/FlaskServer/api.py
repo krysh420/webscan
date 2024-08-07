@@ -1,47 +1,29 @@
-from flask_cors import CORS
+# import threading
 from app import main_function
 from datetime import datetime
 from flask import Flask,jsonify,request
-
+from flask_cors import CORS
+# from watchdog.observers import Observer
+# from watchdog.events import FileSystemEventHandler
+import os.path
 app = Flask(__name__)
 CORS(app)
 
 LOGNAME = 'LOG-' + datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + '.log'
 LOG_PATH = fr"../../logs/{LOGNAME}"
-# LOG_PATH = fr"../../logs/LOG-2024-08-05_19-01-10.log"
 
-def logs():
-    try:
-        #opening the files to be read
-        file = open(LOG_PATH,'r')
-        content = file.readlines()
-        #some declarations for loop
-        only_logs=[]
-        start_value=0
-        stop_value=0
-        for i in content:
-            if("+ Server" in i):
-                start_value=content.index(i)+1
-            elif("+ ERROR" in i or "+ Scan terminated:" in i):
-                stop_value=content.index(i)
-                break
-            else:
-                continue
+# class FileChangeHandler(FileSystemEventHandler):
+#     def __init__(self, file_path, update_callback):
+#         self.file_path = file_path
+#         self.update_callback = update_callback
 
-        # for loop, which will only store logs and not the starter boilerplate content
-        for i in range(start_value,stop_value):
-            if "See:" in content[i]:
-                index=content[i].find("See:")
-                content[i]=content[i].replace(content[i][index::],"")
-                only_logs.append(content[i])
-            if "+" or "/:" in content[i]:
-                content[i]=content[i].replace("+","")
-                content[i]=content[i].replace("/:","")
-                only_logs.append(content[i])
-        file.close()
-        return only_logs
-    except FileNotFoundError:
-        print("Waiting for user to start scanning.....")
+# def on_modified(self, event):
+#     if event.src_path == self.file_path:
+#         self.update_callback(self.file_path)
+
+
+# def logs():
+    
 
 @app.route("/")
 def index():
@@ -59,17 +41,31 @@ def get_URL():
             is_https=True
         else:
             is_https=False
-        main_function(is_https,url_to_be_tested)
+        resp=main_function(is_https,url_to_be_tested)
+        return jsonify({"logs":resp})
+    # return jsonify({"logs":resp})
     return jsonify({"message":"Welcome to WebScan!"})
 
 
 
 # end point to give json response of logs
-@app.route('/Logs',methods=['POST','GET'])
-def Logs():
-    if request.method == "GET":
-        only_logs = logs()
-        return jsonify({"logs":only_logs})
+# @app.route('/Logs',methods=['POST','GET'])
+# def Logs():
+#     if request.method == "GET":
+#         only_logs = logs()
+#         return jsonify({"logs":only_logs})
     
-if __name__=="__main__":
-    app.run(debug=False)
+if __name__ == '__main__':   
+    app.run(debug=True)
+    # observer = Observer()
+    # if os.path.isfile(LOG_PATH):
+    #     try:
+    #         handler = FileChangeHandler(LOG_PATH, logs)
+    #         observer.schedule(handler, path=LOG_PATH, recursive=False)
+    #         observer_thread = threading.Thread(target=observer.start)
+    #         observer_thread.start()
+    #     except FileNotFoundError:
+    #         print("Waiting for user to start the scan...")
+    #         observer.join()
+    # else:
+    #     print("Waiting for the user to start scanning")

@@ -1,3 +1,5 @@
 logs/
 links.txt
 .config
+env/
+__pycache__/

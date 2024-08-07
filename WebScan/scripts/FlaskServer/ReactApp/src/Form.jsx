@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styles from "./Home.module.css"
+import ModeContext from "../context/mode/modeContext";
 
 export default function Form(){
+  const context = useContext(ModeContext)
+  const {Result,setResult} = context
   const [Data, setData] = useState({URL:"",is_https:""})
 
   const onchange = (e) => {
@@ -9,11 +12,13 @@ export default function Form(){
   }
 
   const handleSubmit = async() => {
-    await fetch("http://127.0.0.1:5000/getURL",{
+    const resp = await fetch("http://127.0.0.1:5000/getURL",{
       method:"POST",
       headers:{'Content-Type': 'application/json'},
       body: JSON.stringify({Data})
     })
+    const jsonResp = await resp.json()
+    setResult(jsonResp)
   }
   return (
     <>

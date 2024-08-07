@@ -4,7 +4,7 @@ export default function IndLogs(props){
     const {log}=props
     return(
         <>
-        {<div className={`card my-4 ${styles.cardStyleLogs}`} >
+        {<div className={`card my-4 mx-2 ${styles.cardStyleLogs}`} >
             <div className="card-body d-flex 
                      align-items-center">
                     <div className="icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-info-circle" style={{marginBottom:"2px"}} viewBox="0 0 16 16">
@@ -12,8 +12,8 @@ export default function IndLogs(props){
                             <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
                             </svg>
                     </div>
-                    <div className="text mx-3">
-                        <h4 className="card-title mb-0">{log}</h4>
+                    <div className="text mx-3 " style={{textAlign:"justify"}}>
+                        <h4 className="card-title text-break mb-0">{log}</h4>
                     </div>
             </div>
         </div>
