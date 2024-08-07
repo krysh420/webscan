@@ -5,6 +5,9 @@ import styles from "../../src/Home.module.css"
 const ModeState = (props) => {
     const [Result, setResult] = useState(null)
     const [Mode, setMode] = useState("")
+    const [Loading, setLoading] = useState("none")
+
+    
     const mode = localStorage.getItem('CurrentMode')
     const ToggleMode = () => {
         if (!mode) {
@@ -120,7 +123,7 @@ const ModeState = (props) => {
 
     }
     return(
-        <ModeContext.Provider value={{Mode,Result,setResult,ToggleMode,OnReloadMode}}>
+        <ModeContext.Provider value={{Mode,Result,Loading,setResult,ToggleMode,OnReloadMode,setLoading}}>
             {props.children}
         </ModeContext.Provider>
     )

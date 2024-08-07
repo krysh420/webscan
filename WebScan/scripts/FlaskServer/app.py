@@ -167,6 +167,7 @@ def main_function(ssl,url):
 
         #opening the files to be read
     LOG_PATH = fr"../../logs/{LOGNAME}"
+    # LOG_PATH = r"../../logs/LOG-2024-08-07_16-38-57.log"
     file = open(LOG_PATH,'r')
     content = file.readlines()
     # some declarations for loop
@@ -183,13 +184,12 @@ def main_function(ssl,url):
             continue
     # for loop, which will only store logs and not the starter boilerplate content
     for i in range(start_value,stop_value):
-        if "See:" in content[i]:
+        if "See:" and "+"  in content[i]:
             index=content[i].find("See:")
             content[i]=content[i].replace(content[i][index::],"")
-            only_logs.append(content[i])
-        if "+" or "/:" in content[i]:
             content[i]=content[i].replace("+","")
-            content[i]=content[i].replace("/:","")
+            if  "/:" in content[i]:
+                content[i]=content[i].replace("/:","")
             only_logs.append(content[i])
     file.close()
     print(BRIGHT_GREEN + "Scan completed, Log saved in logs folder." + RESET)

@@ -10,14 +10,12 @@ import ModeContext from "../context/mode/modeContext"
 export default function Logs() {
     const [Logs, setLogs] = useState(null)
     const context = useContext(ModeContext)
-    const {Result}=context
+    const {Result,Loading}=context
     
     useEffect(() => {
         if (Result) {
             setLogs(Result.logs)
-        }
-        // console.log(Logs)
-        
+        } 
     }, [Result])
     
 
@@ -25,7 +23,7 @@ export default function Logs() {
         <>
             <div className="px-4 mt-5" style={{border:"1px solid #dddddd", borderRadius:"10px",width:"49vw", boxShadow:"0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 6px 0 rgba(0, 0, 0, 0.19)"}}>
                 <h2 className="text-center" style={{margin:"40px 0px 0px 0px"}}>Results</h2>
-                <div style={{overflowY:"scroll", overflowX:"hidden" , maxHeight:"54vh", margin:"20px 10px", }}>
+                <div style={{overflowY:`${Logs?"scroll":"hidden"}`, overflowX:"hidden" , maxHeight:"54vh", margin:"20px 10px", }}>
                 {Logs?Logs.map((item,index)=>{ 
                     return <IndLogs key={index} log={item}/>
                 }):
@@ -39,12 +37,16 @@ export default function Logs() {
                             </svg></div>
                         <div className="text">
                         <h5 className="card-title mb-0">
-                        All the results shall appear here</h5>
+                        {Loading==="block"?"Scan in progress ... Please Wait":"All the results shall appear here"}</h5>
                         </div>
                     </div>
                 </div>
                 
                 }  
+                
+                <div className="spinner-border text-primary" role="status" style={{display:Loading,margin:"100px 0px 0px 330px"}}>
+                <span className="visually-hidden ">Loading...</span>
+                </div>
                 </div>
             </div>
         </>

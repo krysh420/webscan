@@ -4,7 +4,7 @@ import ModeContext from "../context/mode/modeContext";
 
 export default function Form(){
   const context = useContext(ModeContext)
-  const {Result,setResult} = context
+  const {setResult,setLoading} = context
   const [Data, setData] = useState({URL:"",is_https:""})
 
   const onchange = (e) => {
@@ -12,13 +12,15 @@ export default function Form(){
   }
 
   const handleSubmit = async() => {
-    const resp = await fetch("http://127.0.0.1:5000/getURL",{
+    setLoading("block")
+    const resp = await fetch("http://127.0.0.1:5000/Logs",{
       method:"POST",
       headers:{'Content-Type': 'application/json'},
       body: JSON.stringify({Data})
     })
     const jsonResp = await resp.json()
     setResult(jsonResp)
+    setLoading("none")
   }
   return (
     <>
