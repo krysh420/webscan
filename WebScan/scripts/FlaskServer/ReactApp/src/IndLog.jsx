@@ -1,19 +1,8 @@
-
-// import { useState } from "react"
 import styles from "./Home.module.css"
 
 
 export default function IndLogs(props){
-    // const [CurrentLink, setCurrentLink] = useState(null)
-    // const getLink = async(vul) => {
-    //     const resp = await (await fetch(`https://www.googleapis.com/customsearch/v1?key=KEY&q=${vul}`,{
-    //         method:'GET',
-    //         headers:{
-    //             'Content-Type':'application/json'
-    //         }
-    //     })).json()
-    //     setCurrentLink(resp.items)
-    // }
+    
     const {log}=props
     return(
         <>
@@ -29,30 +18,7 @@ export default function IndLogs(props){
                         <h4 className="card-title text-break mb-0">{log}</h4>
                     </div>
             </div>
-            {/* <div className="Links d-flex justify-content-end mx-4 mb-4 px-2"><button type="button" className={`btn btn-sm btn-warning ${styles.buttonFix}`} data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={()=>{getLink(log)}} >View Fix </button></div>
-
-            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog">
-                <div className="modal-content">
-                <div className="modal-header">
-                    <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                    <p className="fs-5">Here are a few links to understand this vulnerability and fix it:</p>
-                    {
-                        CurrentLink?CurrentLink.map((item,index)=>{
-                            return <a key={index} href={`${item.link}`} className="btn btn-primary mx-2 my-2" target="_blank">Visit the {index+1}th link</a>
-                        }):"no links"
-                    }
-                    
-                </div>
-                <div className="modal-footer">
-                    <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                </div>
-                </div>
-            </div>
-            </div> */}
+            
             </div>
         
                 }

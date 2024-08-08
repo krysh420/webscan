@@ -98,6 +98,9 @@ def read_config():
             elif "IMAGE" in i:
                 IMG_NAME = i.replace("IMAGE: ",  '')
                 IMG_NAME = IMG_NAME.replace("\n",'')
+            elif "API_KEY" in i:
+                API_KEY = i.replace("API_KEY: ", '')
+                API_KEY = API_KEY.replace("\n", '')
         f.close()
         print(f'{MAGENTA}OS: {BRIGHT_MAGENTA}{PLATFORM}{RESET}',f'\n{GREEN}ENGINE: {ENGINE}{RESET}',f'\n{BRIGHT_BLUE}IMAGE: {IMG_NAME}{RESET}')
     else: # Else ask user to run setup script and exit the app
@@ -165,7 +168,6 @@ def main_function(ssl,url):
 
         #opening the files to be read
     LOG_PATH = fr"../../logs/{LOGNAME}"
-    # LOG_PATH = r"../../logs/LOG-2024-08-07_16-38-57.log"
     file = open(LOG_PATH,'r')
     content = file.readlines()
     # some declarations for loop

@@ -13,8 +13,8 @@ from datetime import datetime
 # To check presence of configuration file
 from pathlib import Path
 
-import subprocess
 from time import sleep
+import subprocess
 
 # IGNORE (Colors)
 BLACK = '\033[30m'
@@ -135,32 +135,44 @@ Some Linux distros now also manage packages externally, for those, you can eithe
             if retry.lower() == "no":
                 print(BRIGHT_RED + "Exiting setup. Run setup again after building image." + RESET)
                 quit() # Or if you give up
+    
+    # Need Google API Key, it will be stored in .config
+    global API_KEY
+    API_KEY = input(f"""
+{YELLOW}This project uses Google's Search API to get you results regarding the vulnerability in your webapp. {BRIGHT_YELLOW}You will need an API Key. You can get your own API Key for free at https://developers.google.com/custom-search/v1/introduction{YELLOW} .
+Get an API Key and enter it here.{RESET}""").strip()
+    if len(API_KEY) != 39:
+        while len(API_KEY) != 39:
+            API_KEY = input(f"{RED}Enter a valid API Key: {RESET}").strip()
+    else:    
+        print(BRIGHT_GREEN + "\nAll requirements have been successfully installed.\n" + RESET)
+        print(MAGENTA + "Creating up config file...." + RESET)
+        config_file() # Generating config file           
+        print(BRIGHT_YELLOW + "\nApp is now ready to use. You can run 'test.py' to make sure everything is running \n" + RESET)
 
-    print(BRIGHT_GREEN + "\nAll requirements have been successfully installed.\n" + RESET)
-    print(MAGENTA + "Creating up config file...." + RESET)
-    config_file() # Generating config file           
-    print(BRIGHT_YELLOW + "\nApp is now ready to use. You can run 'test.py' to make sure everything is running \n" + RESET)
 
 def update_full(): # Update entire project 
     print(BRIGHT_YELLOW + "Performing full update")
     print("Pulling files from Github...")
-    system('git init')
     system('git pull')
+    
     print("Updating image...")
     update_img()
+    
     print("Recreating configuration file...." + RESET)
     config_file()
-
-
     
+
 def run_guiApp():
     # Start the React app
 
-    # Wait for both processes to complete
     try:
-       subprocess.run('cd ReactApp && start cmd /k npm run dev',shell=True)
-       subprocess.run('start cmd /k "flask.bat"',shell=True)
-       
+       system('cd ReactApp && start cmd /k npm run dev')
+       if PLATFORM.lower() == "windows":
+            system('start cmd /k "flask.bat"')
+       else:
+            system("./flask.sh",shell=True)
+           
     except KeyboardInterrupt:
         print("Shutting down servers...")
     
@@ -186,9 +198,23 @@ def config_file(): # Generates Config file
     config = f'''OS: {PLATFORM.lower()}
 ENGINE: {ENGINE.lower()}
 IMAGE: {IMG_NAME}
-LAST_UPDATE: {datetime.now()}'''
+LAST_UPDATE: {datetime.now()}
+API_KEY: {API_KEY}'''
     f.writelines(config)
     print(BRIGHT_YELLOW + "Configuration file generated." + RESET)
+    f.close()
+
+
+def update_key():
+    API_KEY = input(f"{BLUE}Enter new API Key: {RESET}")
+    f = f = open(".config", "w") 
+    config = f'''OS: {PLATFORM.lower()}
+ENGINE: {ENGINE.lower()}
+IMAGE: {IMG_NAME}
+LAST_UPDATE: {datetime.now()}
+API_KEY: {API_KEY}'''
+    f.writelines(config)
+    print(BRIGHT_YELLOW + "API key updated." + RESET)
     f.close()
 
 
@@ -206,8 +232,9 @@ def main():
 {YELLOW}2. Check for Updates
 {MAGENTA}3. Run the GUI App
 {WHITE}4. Update only image 
-{BRIGHT_RED}5. Disclaimer
-{BRIGHT_CYAN}6. Exit
+{DARK_GRAY}5. Update API Key
+{BRIGHT_RED}6. Disclaimer
+{BRIGHT_CYAN}7. Exit
            {RESET}''')
     
     option = input("Enter your choice: ")
@@ -220,7 +247,6 @@ def main():
     elif option == '2':
         update_full()
 
-
     elif option == '3':
         run_guiApp()
     
@@ -228,9 +254,12 @@ def main():
         update_img()
     
     elif option == '5':
+        update_key()
+
+    elif option == '6':
         disclaimer()
     
-    elif option == '6':
+    elif option == '7':
         quit()
     
 if __name__ == "__main__":
@@ -244,7 +273,7 @@ if __name__ == "__main__":
             f = open("../.config","r") # Open config file
             lines = f.readlines() 
             for i in lines: # Store values from config file into their respective (global) variables
-                global PLATFORM, ENGINE, IMG_NAME 
+                global PLATFORM, ENGINE, IMG_NAME, API_KEY 
                 if "OS"in i:
                     PLATFORM = i.replace("OS: ", '')
                     PLATFORM = PLATFORM.replace("\n", '')
@@ -254,6 +283,9 @@ if __name__ == "__main__":
                 elif "IMAGE" in i:
                     IMG_NAME = i.replace("IMAGE: ",  '')
                     IMG_NAME = IMG_NAME.replace("\n",'')
+                elif "API_KEY" in i:
+                    API_KEY = i.replace("API_KEY: ", '')
+                    API_KEY = API_KEY.replace("\n", '')
                 f.close()
             print(f'{MAGENTA}OS: {PLATFORM}{RESET}',f'\n{GREEN}ENGINE: {ENGINE}{RESET}',f'\n{BRIGHT_BLUE}IMAGE: {IMG_NAME}{RESET}')
             main()

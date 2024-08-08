@@ -1,11 +1,10 @@
 from time import sleep
-print(
-
-    '''
-                                +------------------+   
-                                |Welcome to WEBSCAN|
-                                +------------------+
-
+print('''
+                                      _                         
+                        __      _____| |__  ___  ___ __ _ _ __  
+                        \ \ /\ / / _ \ '_ \/ __|/ __/ _` | '_ \ 
+                         \ V  V /  __/ |_) \__ \ (_| (_| | | | |
+                          \_/\_/ \___|_.__/|___/\___\__,_|_| |_|
 
                         'Solution for your cybersecurity needs'
                 '''
@@ -30,7 +29,7 @@ sleep(10)
 print(
     '''
 
-A. STAGE ONE (Basic Setup)
+                                            A. STAGE ONE (Basic Setup)
 
 -> Now we will install some basic dependencies for the app to run
 -> Here we go!
@@ -46,7 +45,8 @@ sleep(5)
 print(
     '''
 
-B. STAGE TWO (Getting Started)
+                                            B. STAGE TWO (Getting Started)
+                                            
 -> Now you will be introduced to our app and from there you can decide what to do as you wish
 -> NOTE: If you are running the GUI App, make sure to run the react app in browser. All you need to do is copy and hit the url of app, which looks like=> http://localhost:<port>.
 

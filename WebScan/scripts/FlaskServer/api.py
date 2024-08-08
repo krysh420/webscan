@@ -3,7 +3,6 @@ from app import main_function
 from datetime import datetime
 from flask import Flask,jsonify,request
 from flask_cors import CORS
-import os.path
 app = Flask(__name__)
 CORS(app)
 

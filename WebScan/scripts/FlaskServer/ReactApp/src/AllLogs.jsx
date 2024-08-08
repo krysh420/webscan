@@ -1,9 +1,6 @@
 import styles from "./Home.module.css"
-import {getLogs} from "../Utils/FetchLogs"
 import { useContext, useEffect, useState } from "react"
 import IndLogs from "./IndLog"
-import Loading from "./Loading"
-import LogsError from "./LogsError"
 import ModeContext from "../context/mode/modeContext"
 
 
@@ -11,7 +8,6 @@ export default function Logs() {
     const [Logs, setLogs] = useState(null)
     const context = useContext(ModeContext)
     const {Result,Loading}=context
-    
     useEffect(() => {
         if (Result) {
             setLogs(Result.logs)
