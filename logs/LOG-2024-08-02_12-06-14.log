@@ -1,0 +1,27 @@
+
+LOG 2024-08-02 12:06:14.458120
+- Nikto v2.5.0
+---------------------------------------------------------------------------
++ Target IP:          127.0.0.1
++ Target Hostname:    127.0.0.1
++ Target Port:        5000
++ Start Time:         2024-08-02 06:36:14 (GMT0)
+---------------------------------------------------------------------------
++ Server: Werkzeug/2.2.2 Python/3.11.2
++ /: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
++ /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ OPTIONS: Allowed HTTP Methods: OPTIONS, HEAD, GET, POST .
++ /console: This might be interesting.
++ /#wp-config.php#: #wp-config.php# file found. This file contains the credentials.
++ 8074 requests: 0 error(s) and 5 item(s) reported on remote host
++ End Time:           2024-08-02 06:36:25 (GMT0) (11 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
+
+
+*********************************************************************
+Portions of the server's headers (Python/3.11.2) are not in
+the Nikto 2.5.0 database or are newer than the known string. Would you like
+to submit this information (*no server specific data*) to CIRT.net
+for a Nikto update (or you may email to sullo@cirt.net) (y/n)?
