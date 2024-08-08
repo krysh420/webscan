@@ -15,6 +15,7 @@ const ModeState = (props) => {
             setMode('dark')
             document.body.style.backgroundColor="#001a43"
             document.body.style.color="#dee9fa"
+            document.getElementById("footer").style.backgroundColor="#00102a"
             if ( document.getElementById("floatingInput")&&document.getElementsByClassName("form-select")[0]) {
                 document.getElementById("floatingInput").className=`form-control ${styles.inputDark}`
             }
@@ -36,6 +37,7 @@ const ModeState = (props) => {
             setMode('dark')
             document.body.style.backgroundColor="#001a43"
             document.body.style.color="#dee9fa"
+            document.getElementById("footer").style.backgroundColor="#00102a"
             if ( document.getElementById("floatingInput")&&document.getElementsByClassName("form-select")[0]) {
                 document.getElementById("floatingInput").className=`form-control ${styles.inputDark}`
             }
@@ -57,6 +59,7 @@ const ModeState = (props) => {
             setMode('light')
             document.body.style.backgroundColor="white"
             document.body.style.color="black"
+            document.getElementById("footer").style.backgroundColor="#001e4e"
             if ( document.getElementById("floatingInput")&&document.getElementsByClassName("form-select")[0]) {
                 document.getElementById("floatingInput").className=`form-control ${styles.inputLight}`
             }
@@ -82,6 +85,7 @@ const ModeState = (props) => {
             setMode('light')
             document.body.style.backgroundColor="white"
             document.body.style.color="black"
+            document.getElementById("footer").style.backgroundColor="#001e4e"
             if ( document.getElementById("floatingInput")&&document.getElementsByClassName("form-select")[0]) {
                 document.getElementById("floatingInput").className=`form-control ${styles.inputLight}`
             }
@@ -102,6 +106,7 @@ const ModeState = (props) => {
             setMode('dark')
             document.body.style.backgroundColor="#001a43"
             document.body.style.color="#dee9fa"
+            document.getElementById("footer").style.backgroundColor="#00102a"
             if ( document.getElementById("floatingInput")&&document.getElementsByClassName("form-select")[0]) {
                 document.getElementById("floatingInput").className=`form-control ${styles.inputDark}`
             }

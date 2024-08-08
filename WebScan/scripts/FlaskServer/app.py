@@ -18,8 +18,6 @@ from datetime import datetime
 # To extract links from logs
 from re import findall 
 
-import subprocess
-from os import system
 # Global variables
 global ENGINE, PLATFORM, IMG_NAME
 

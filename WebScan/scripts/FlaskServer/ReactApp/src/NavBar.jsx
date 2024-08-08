@@ -28,12 +28,6 @@ export default function NavBar(){
             <li className="nav-item mx-3">
             <Link className={`nav-link ${location.pathname==="/license"?"active":""}`}  to="/license">License</Link>
             </li>
-            <li className="nav-item mx-3">
-            <Link className={`nav-link ${location.pathname==="/feedback"?"active":""}`}  to="/feedback">FeedBack</Link>
-            </li>
-            <li className="nav-item mx-3">
-            <Link className={`nav-link ${location.pathname==="/Contact"?"active":""}`}  to="/Contact">Contact Us</Link>
-            </li>
         </ul>
         </div>
         </div>

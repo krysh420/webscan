@@ -155,12 +155,11 @@ def update_full(): # Update entire project
     
 def run_guiApp():
     # Start the React app
-    title="FLASK"
 
     # Wait for both processes to complete
     try:
        subprocess.run('cd ReactApp && start cmd /k npm run dev',shell=True)
-       subprocess.run(f'start cmd /k "flask.bat"',shell=True)
+       subprocess.run('start cmd /k "flask.bat"',shell=True)
        
     except KeyboardInterrupt:
         print("Shutting down servers...")

@@ -8,8 +8,6 @@ import Home from "./Home";
 import About from "./About";
 import ModeState from "../context/mode/modeState";
 import License from './License';
-import Feedback from './Feedback';
-import Contact from './Contact';
 
 
 const router = createBrowserRouter([
@@ -24,14 +22,6 @@ const router = createBrowserRouter([
   {
     path: "/license",
     element: <ModeState><License/></ModeState>
-  },
-  {
-    path: "/feedback",
-    element: <ModeState><Feedback/></ModeState>
-  },
-  {
-    path: "/contact",
-    element: <ModeState><Contact/></ModeState>
   },
 ]);
 
