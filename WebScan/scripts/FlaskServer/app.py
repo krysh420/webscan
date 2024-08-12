@@ -148,6 +148,7 @@ def docker_run(command):
 
 def main_function(ssl,url):
     read_config() # Setup will not run if config not present
+    LOGNAME = 'LOG-' + datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + '.log'
     init_log()
     # Log configuration
     logging.basicConfig(filename=log_dir / LOGNAME, filemode='a', level=logging.INFO, format='%(message)s')
