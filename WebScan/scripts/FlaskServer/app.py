@@ -146,7 +146,7 @@ def docker_run(command):
         return str(e)
 
 
-def main_function(ssl,url):
+def main_function(ssl,url,port):
     read_config() # Setup will not run if config not present
     LOGNAME = 'LOG-' + datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + '.log'
     init_log()
@@ -154,16 +154,29 @@ def main_function(ssl,url):
     logging.basicConfig(filename=log_dir / LOGNAME, filemode='a', level=logging.INFO, format='%(message)s')
     print(BRIGHT_BLUE + "Scan in progress... Wait till its done." + RESET)
     if ENGINE.lower() == "docker":
-        if ssl == True:
-            docker_run(f"nikto -h {url} -ssl")
-        else:  
-            docker_run(f"nikto -h {url}")
+        if (not port) :
+            if ssl == True:
+                docker_run(f"nikto -h {url} -ssl")
+            else:  
+                docker_run(f"nikto -h {url}")
+        else:
+            if ssl == True:
+                docker_run(f"nikto -h {url} -p {port} -ssl")
+            else:  
+                docker_run(f"nikto -h {url}")
 
     elif ENGINE.lower() == "podman":
-        if ssl == False:
-            podman_run(["nikto", "-h", url, "--ssl"])
+        if (not port):
+            if ssl == False:
+                podman_run(["nikto", "-h", url, "--ssl"])
+            else:
+                podman_run(["nikto", "-h", url])
         else:
-            podman_run(["nikto", "-h", url])
+            if ssl == False:
+                podman_run(["nikto", "-h", url, port,"--ssl"])
+            else:
+                podman_run(["nikto", "-h", url,port])
+
     read_log()
     extract_links()
 

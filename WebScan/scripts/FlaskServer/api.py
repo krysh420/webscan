@@ -22,11 +22,12 @@ def Logs():
         data = data['Data']
         url_to_be_tested = data['URL']
         is_https = data['is_https']
+        port = data['port']
         if is_https=="True":
             is_https=True
         else:
             is_https=False
-        resp=main_function(is_https,url_to_be_tested)
+        resp=main_function(is_https,url_to_be_tested,port)
         return jsonify({"logs":resp})
     return jsonify({"message":"Welcome to WebScan!"})
 
