@@ -1,19 +1,19 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import App from './App.jsx'
+import './index.css'
+import ModeState from '../context/modeState.jsx'
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Home from "./Home";
-import About from "./About";
-import ModeState from "../context/mode/modeState";
-import License from './License';
-
+import About from '../components/About.jsx'
+import License from '../components/License.jsx'
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <ModeState><Home/></ModeState>
+    element: <ModeState><App/></ModeState>
   },
   {
     path: "/about",
@@ -25,8 +25,8 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>,
+  </StrictMode>,
 )

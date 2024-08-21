@@ -172,6 +172,7 @@ def main_function(ssl,url):
     content = file.readlines()
     # some declarations for loop
     only_logs=[]
+    ind_log = {}
     start_value=0
     stop_value=0
     for i in content:
@@ -183,14 +184,22 @@ def main_function(ssl,url):
         else:
             continue
     # for loop, which will only store logs and not the starter boilerplate content
+    # for i in range(start_value,stop_value):
     for i in range(start_value,stop_value):
-        if "See:" and "+"  in content[i]:
+        if "See:" or "+"  in content[i]:
             index=content[i].find("See:")
             content[i]=content[i].replace(content[i][index::],"")
             content[i]=content[i].replace("+","")
+            ind_log = {}
             if  "/:" in content[i]:
                 content[i]=content[i].replace("/:","")
-            only_logs.append(content[i])
+                ind_log['log']=content[i]
+                ind_log['id']=i
+                only_logs.append(ind_log)
+            else:
+                ind_log['log']=content[i]
+                ind_log['id']=i
+                only_logs.append(ind_log)
     file.close()
     print(BRIGHT_GREEN + "Scan completed, Log saved in logs folder." + RESET)
     return only_logs
