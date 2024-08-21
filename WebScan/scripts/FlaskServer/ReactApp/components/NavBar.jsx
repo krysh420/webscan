@@ -23,9 +23,9 @@ const NavBar = () => {
     <>
       <nav className='bg-blue-600 text-[#f6faff]'>
         <div className="content py-4 px-20 flex justify-between items-center max-sm:px-8">
-          <Link to="/"><div className="logo text-2xl flex w-36 justify-between items-center">
+          <Link to="/"><div className="logo text-2xl flex sm:w-36 justify-between items-center">
             <div className="img"><img src="logo.png"  width="36px" /></div>
-            <p className="font-semibold">WebScan</p>
+            <p className="font-semibold max-sm:hidden">WebScan</p>
           </div></Link>
           <div className="options text-md hidden sm:block">
             <ul className='flex'>
@@ -52,7 +52,7 @@ const NavBar = () => {
           </div>
         </div>
         <div className="navbarSm flex justify-center sm:hidden">
-          <ul className='pl-10 pb-6'>
+          <ul className='pb-6'>
             <li><button onClick={()=>{navigate("/")}} className={`py-2 px-5 mb-2 w-fit border hover:bg-blue-100 hover:text-blue-950 rounded-[6px] ${location.pathname==="/"?"text-blue-950 bg-blue-100":""}`}>Home</button></li>
             <li><button onClick={()=>{navigate("/about")}} className={`py-2 px-5 mb-2 w-fit border hover:bg-blue-100 hover:text-blue-950 rounded-[6px] ${location.pathname==="/about"?"text-blue-950 bg-blue-100":""}`}>About</button></li>
             <li><button onClick={()=>{navigate("/license")}} className={`py-2 px-4 mb-2 w-fit border hover:bg-blue-100 hover:text-blue-950 rounded-[6px] ${location.pathname==="/license"?"text-blue-950 bg-blue-100":""}`}>License</button></li>
