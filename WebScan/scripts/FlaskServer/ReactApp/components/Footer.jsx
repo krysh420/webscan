@@ -12,7 +12,7 @@ const Footer = () => {
           <h4 className="pt-2 text-xl">Contact Us</h4>
         </div>
       </div>
-      <div className="copyright my-4 border border-t-blue-200 border-b-0 border-r-0 border-l-0 min-[1050px]:mx-[21vw]"><p className="text-center py-4">Copyright (c) 2024 Krish Mishra | MIT License</p></div>
+      <div className="copyright my-4 border border-t-blue-200 border-b-0 border-r-0 border-l-0 min-[1050px]:mx-[21vw]"><p className="text-center py-4 text-sm">Copyright (c) 2024 Krish Mishra | MIT License</p></div>
     </div>
     
     </>

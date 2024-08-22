@@ -1,14 +1,14 @@
 import React, { useContext, useState } from 'react'
 import ModeContext from '../context/modeContext'
-
 const Form = () => {
 
   const context = useContext(ModeContext)
   const { setResult, setLoading } = context
-  const [Data, setData] = useState({ URL: "", is_https: "",port:"" })
+  const [Data, setData] = useState({ URL: "", is_https: "", port: "" })
+  
 
-  const onchange = (e) => {
-    setData({ ...Data, [e.target.name]: e.target.value })
+  const onchange = async(e) => {
+      setData({ ...Data, [e.target.name]: e.target.value })
   }
 
   const handleSubmit = async (e) => {
@@ -34,7 +34,7 @@ const Form = () => {
           </div>
           <div className="input flex flex-col px-4 my-2">
             <label htmlFor="port" className={`my-2 ${localStorage.getItem("CurrentMode") === "dark" ? "text-blue-50" : ""}`}>Enter the PORT on which the service is running:</label>
-            <input type="text" name='port' onChange={onchange} value={Data.port} className={`border border-blue-700 rounded-lg p-2 focus:ring-2 focus:ring-blue-200 focus:outline-none ${localStorage.getItem("CurrentMode") === "dark" ? "bg-transparent text-blue-50" : ""}`} id='port' placeholder='Optional'/>
+            <input type="text" name='port' onChange={onchange} value={Data.port} className={`border border-blue-700 rounded-lg p-2 focus:ring-2 focus:ring-blue-200 focus:outline-none ${localStorage.getItem("CurrentMode") === "dark" ? "bg-transparent text-blue-50" : ""}`} id='port' placeholder='Optional' />
           </div>
 
           <div className="select flex flex-col px-4 my-2">

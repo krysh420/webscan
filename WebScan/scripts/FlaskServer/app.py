@@ -148,7 +148,6 @@ def docker_run(command):
 
 def main_function(ssl,url,port):
     read_config() # Setup will not run if config not present
-    LOGNAME = 'LOG-' + datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + '.log'
     init_log()
     # Log configuration
     logging.basicConfig(filename=log_dir / LOGNAME, filemode='a', level=logging.INFO, format='%(message)s')
@@ -163,7 +162,8 @@ def main_function(ssl,url,port):
             if ssl == True:
                 docker_run(f"nikto -h {url} -p {port} -ssl")
             else:  
-                docker_run(f"nikto -h {url}")
+                
+                docker_run(f"nikto -h {url} -p {port}")
 
     elif ENGINE.lower() == "podman":
         if (not port):
@@ -192,7 +192,7 @@ def main_function(ssl,url,port):
     for i in content:
         if("+ Server" in i):
             start_value=content.index(i)+1
-        elif("+ ERROR" in i or "+ Scan terminated:" in i):
+        elif("+ ERROR" in i or "+ Scan terminated:" in i or "+ End Time" in i):
             stop_value=content.index(i)
             break
         else:

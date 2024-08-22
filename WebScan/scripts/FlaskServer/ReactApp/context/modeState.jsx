@@ -5,7 +5,7 @@ const ModeState = (props) => {
     const [Result, setResult] = useState(null)
     const [Mode, setMode] = useState("")
     const [Loading, setLoading] = useState("none")
-
+    const [IPissue, setIPissue] = useState(false)
     
     const mode = localStorage.getItem('CurrentMode')
     const ToggleMode = () => {
