@@ -12,7 +12,7 @@ export default function About() {
 
   window.addEventListener('resize', () => {
     if (window.innerWidth < 640) {
-      document.getElementById("content").style.transform = "translateY(-26vh)"
+      document.getElementById("content").style.transform = "translateY(-28vh)"
       document.getElementById("content").style.transition = "transform 0s"
     }
     else {
@@ -24,7 +24,7 @@ export default function About() {
   return (
     <>
       <Navbar />
-      <div className="bg-[#f6faff] absolute text-blue-950 translate-y-[-26vh] sm:translate-y-[0vh] max-sm:px-8 text-justify px-20 pt-10 text-xl h-fit " id="content">
+      <div className="bg-[#f6faff] absolute text-blue-950 translate-y-[-28vh] sm:translate-y-[0vh] max-sm:px-8 text-justify px-20 pt-10 text-xl h-fit " id="content">
         <div className="about h-[100vh]">
           Vulnerabilities in apps are a significant issue due to their potential to expose sensitive user data and disrupt services. Flaws in app design can be exploited by attackers to gain unauthorized access, leading to data breaches, financial loss, and privacy violations. With apps being integral to personal and business operations, any weakness can be a gateway for cyber threats.
 

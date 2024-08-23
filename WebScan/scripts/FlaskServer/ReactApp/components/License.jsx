@@ -14,7 +14,7 @@ const License = () => {
 
   window.addEventListener('resize', () => {
     if (window.innerWidth < 640) {
-      document.getElementById("content").style.transform = "translateY(-26vh)"
+      document.getElementById("content").style.transform = "translateY(-28vh)"
       document.getElementById("content").style.transition = "transform 0s"
     }
     else {
@@ -26,7 +26,7 @@ const License = () => {
   return (
     <>
       <NavBar />
-      <div className="bg-[#f6faff] absolute text-blue-950 translate-y-[-26vh] sm:translate-y-[0vh] max-sm:px-8 text-justify px-20 pt-10 text-xl h-fit " id="content">
+      <div className="bg-[#f6faff] absolute text-blue-950 translate-y-[-28vh] sm:translate-y-[0vh] max-sm:px-8 text-justify px-20 pt-10 text-xl h-fit " id="content">
         <div className='license h-[100vh]'>
           MIT License
           <br />

@@ -11,7 +11,7 @@ const NavBar = () => {
 
   const toggleNav = () => {
     if (document.getElementById("content").style.transform==="translateY(0vh)") {
-      document.getElementById("content").style.transform = "translateY(-26vh)"
+      document.getElementById("content").style.transform = "translateY(-28vh)"
       document.getElementById("content").style.transition = "transform 0.5s"
     } else {
       document.getElementById("content").style.transform = "translateY(0vh)"
@@ -22,7 +22,7 @@ const NavBar = () => {
   return (
     <>
       <nav className='bg-blue-600 text-[#f6faff]'>
-        <div className="content py-4 px-20 flex justify-between items-center max-sm:px-8">
+        <div className="content pt-4 pb-4 max-sm:pb-8 px-20 flex justify-between items-center max-sm:px-8">
           <Link to="/"><div className="logo text-2xl flex sm:w-36 justify-between items-center">
             <div className="img"><img src="logo.png"  width="36px" /></div>
             <p className="font-semibold max-sm:hidden">WebScan</p>
