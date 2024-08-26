@@ -19,8 +19,13 @@ const Form = () => {
       }
       if (e.target.name==='port') {
         if ((!isNaN(e.target.value) && !isNaN(parseFloat(e.target.value)) || (e.target.value)==='')) {
-          setDisabled(false)
-          setData({ ...Data, [e.target.name]: e.target.value })
+          if (Number.parseInt(e.target.value)<0 || Number.parseInt(e.target.value)>65535) {
+            setDisabled(true)
+          }
+          else{
+            setDisabled(false)
+            setData({ ...Data, [e.target.name]: e.target.value })
+          }
         }
         else{
           setDisabled(true)
@@ -33,16 +38,16 @@ const Form = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading("block")
-    const resp = await fetch("http://127.0.0.1:5000/Logs", {
-      method: "POST",
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ Data })
-    })
-    const jsonResp = await resp.json()
-    setResult(jsonResp)
-    setLoading("none")
-  }
+      setLoading("block")
+      const resp = await fetch("http://127.0.0.1:5000/Logs", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ Data })
+      })
+      const jsonResp = await resp.json()
+      setResult(jsonResp)
+      setLoading("none")
+    }
   return (
     <>
       <div className="form rounded-lg h-[70vh] w-[36%] max-[1050px]:w-full max-[1050px]:h-fit max-sm:p-2 max-[1050px]:py-4 max-[1050px]:px-2 " style={{ border: "1px solid #dddddd", boxShadow: " 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 5px 1px 0 rgba(0, 0, 0, 0.19)" }}>
