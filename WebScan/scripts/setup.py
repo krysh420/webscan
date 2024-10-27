@@ -162,19 +162,6 @@ def update_full(): # Update entire project
     print("Recreating configuration file...." + RESET)
     config_file()
     
-
-def run_guiApp():
-    # Start the React app
-
-    try:
-       system('cd ReactApp && start cmd /k npm run dev')
-       if PLATFORM.lower() == "windows":
-            system('start cmd /k "flask.bat"')
-       else:
-            system("./flask.sh",shell=True)
-           
-    except KeyboardInterrupt:
-        print("Shutting down servers...")
     
 
 def update_img(): # Remove old image, create new one
@@ -230,11 +217,10 @@ def main():
     print(f'''\n{BRIGHT_YELLOW}Choose what you want to do:
 {GREEN}1. Install dependencies
 {YELLOW}2. Check for Updates
-{MAGENTA}3. Run the GUI App
-{WHITE}4. Update only image 
-{DARK_GRAY}5. Update API Key
-{BRIGHT_RED}6. Disclaimer
-{BRIGHT_CYAN}7. Exit
+{WHITE}3. Update only image 
+{DARK_GRAY}4. Update API Key
+{BRIGHT_RED}5. Disclaimer
+{BRIGHT_CYAN}6. Exit
            {RESET}''')
     
     option = input("Enter your choice: ")
@@ -246,20 +232,17 @@ def main():
     
     elif option == '2':
         update_full()
-
-    elif option == '3':
-        run_guiApp()
     
-    elif option == '4':
+    elif option == '3':
         update_img()
     
-    elif option == '5':
+    elif option == '4':
         update_key()
 
-    elif option == '6':
+    elif option == '5':
         disclaimer()
     
-    elif option == '7':
+    elif option == '6':
         quit()
     
 if __name__ == "__main__":

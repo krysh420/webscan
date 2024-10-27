@@ -83,7 +83,7 @@ def extract_links():
 
 def read_config():
     print(BLUE + "Checking for configuration file...." + RESET)
-    CONF_DIR = Path('../../.config')
+    CONF_DIR = Path('../.config')
 
     if CONF_DIR.is_file(): # If config file is already present, call main function
         print(GREEN + "Configuration file found!" + RESET)
@@ -150,7 +150,6 @@ def docker_run(command):
 
 def main_function(ssl,url,port):
     read_config() # Setup will not run if config not present
-    Popen("./flask.sh")
     init_log()
     # Log configuration
     logging.basicConfig(filename=log_dir / LOGNAME, filemode='a', level=logging.INFO, format='%(message)s')
