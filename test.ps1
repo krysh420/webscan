@@ -1,10 +1,11 @@
 Write-Output "Activating virtual environment......"
-& "WebScan\bin\Activate.ps1"
+& "WebScan\WebScan\bin\Activate.ps1"
 
+Set-Location -Path "WebScan"
 Push-Location
 
 Set-Location -Path "scripts"
-python.exe setup.py
+python.exe test.py
 
 Pop-location
 deactivate

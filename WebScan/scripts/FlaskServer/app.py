@@ -18,6 +18,9 @@ from datetime import datetime
 # To extract links from logs
 from re import findall 
 
+# To run flask server in background
+from subprocess import Popen
+
 # Global variables
 global ENGINE, PLATFORM, IMG_NAME
 
@@ -81,7 +84,7 @@ def extract_links():
 
 def read_config():
     print(BLUE + "Checking for configuration file...." + RESET)
-    CONF_DIR = Path('../.config')
+    CONF_DIR = Path('../../.config')
 
     if CONF_DIR.is_file(): # If config file is already present, call main function
         print(GREEN + "Configuration file found!" + RESET)
@@ -148,6 +151,7 @@ def docker_run(command):
 
 def main_function(ssl,url,port):
     read_config() # Setup will not run if config not present
+    Popen("./flask.sh")
     init_log()
     # Log configuration
     logging.basicConfig(filename=log_dir / LOGNAME, filemode='a', level=logging.INFO, format='%(message)s')
@@ -180,7 +184,7 @@ def main_function(ssl,url,port):
     read_log()
     extract_links()
 
-        #opening the files to be read
+    # opening the files to be read
     LOG_PATH = fr"../../logs/{LOGNAME}"
     file = open(LOG_PATH,'r')
     content = file.readlines()
@@ -227,13 +231,11 @@ def main_function(ssl,url,port):
 # 3. Clear log each run [DONE] {NOT NEEDED NOW}
 # 4. Output contents of log excluding [INFO] and \n [DONE]
 # 5. Let the clean log be sent to JS for display [DONE]
-# 6. Help with OpenAI integration to explain the vulnerabilities 
-# 7. Extract links from Nikto logs [DONE]
-# 8. Add support for podman [DONE]
-# 9. Ask user to give a part incase the default port is used already
-# 10. Add functionality to update the image [DONE in setup]
-# 11. Error and Exception handling [WORKING]
-# 12. Add user specific podman enabling warning
+# 6. Extract links from Nikto logs [DONE]
+# 7. Add support for podman [DONE]
+#  8. Ask user to give a part incase the default port is used already
+# 9. Add functionality to update the image [DONE in setup]
+# 10. Error and Exception handling [WORKING]
 
 
 

@@ -1,6 +1,6 @@
 echo Activating virtual environment......
-source WebScan/bin/activate
+source WebScan/WebScan/bin/activate
 cd scripts
-python test.py
+python3 test.py
 cd ..
 deactivate

@@ -289,10 +289,12 @@ if __name__ == "__main__":
                 f.close()
             print(f'{MAGENTA}OS: {PLATFORM}{RESET}',f'\n{GREEN}ENGINE: {ENGINE}{RESET}',f'\n{BRIGHT_BLUE}IMAGE: {IMG_NAME}{RESET}')
             main()
+            break
         else:
             print(RED + "Configuration file not found. Executing function to set up dependencies..."+ RESET) # Else if no config file, call setup function to install deps
             setup_req()
             disclaimer() # Must show disclaimer atleast once
+            break
 
 
 # SETUP REQUIREMENTS:
