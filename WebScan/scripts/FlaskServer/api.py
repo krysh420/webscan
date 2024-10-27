@@ -31,5 +31,6 @@ def Logs():
         return jsonify({"logs":resp})
     return jsonify({"message":"Welcome to WebScan!"})
 
+
 if __name__ == '__main__':   
     app.run(debug=True)
