@@ -1,3 +1,4 @@
+#!/bin/bash
 echo Activating virtual environment......
 source WebScan/WebScan/bin/activate
 cd scripts
