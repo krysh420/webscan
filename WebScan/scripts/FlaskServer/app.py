@@ -83,7 +83,7 @@ def extract_links():
 
 def read_config():
     print(BLUE + "Checking for configuration file...." + RESET)
-    CONF_DIR = Path('../.config')
+    CONF_DIR = Path(__file__).parent.parent.parent.parent / ".config"
 
     if CONF_DIR.is_file(): # If config file is already present, call main function
         print(GREEN + "Configuration file found!" + RESET)

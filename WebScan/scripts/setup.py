@@ -5,6 +5,7 @@
 from os import system, popen
 
 # For checking OS
+import os
 from platform import system as os_check # Gave an alias so it doesn't interfere with system from os module. It only has one use in this program
 
 # To timestamp last setup
@@ -181,7 +182,11 @@ def update_img(): # Remove old image, create new one
 
 
 def config_file(): # Generates Config file
-    f = open(".config", "w") 
+    # Specify directory and file name
+    directory = Path("../../")
+    file_name = ".config"
+    file_path = os.path.join(directory, file_name)
+    f = open(file_path, "w") 
     config = f'''OS: {PLATFORM.lower()}
 ENGINE: {ENGINE.lower()}
 IMAGE: {IMG_NAME}

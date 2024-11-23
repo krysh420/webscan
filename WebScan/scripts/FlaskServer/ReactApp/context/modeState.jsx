@@ -1,11 +1,18 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ModeContext from "./modeContext"
 
 const ModeState = (props) => {
     const [Result, setResult] = useState(null)
     const [Mode, setMode] = useState("")
     const [Loading, setLoading] = useState("none")
-    const [IPissue, setIPissue] = useState(false)
+    const [API_KEY, setAPI_KEY] = useState("");
+    useEffect(() => {
+        fetch("http://127.0.0.1:5000/GetKey", {
+            method: "GET",
+            headers: { 'Content-Type': 'application/json' },
+        })
+        .then((resp)=>{return resp.json()}).then((resp)=>{setAPI_KEY(resp.key)})
+    }, [])
     
     const mode = localStorage.getItem('CurrentMode')
     const ToggleMode = () => {
@@ -52,7 +59,7 @@ const ModeState = (props) => {
 
     }
     return(
-        <ModeContext.Provider value={{Mode,Result,Loading,setResult,ToggleMode,OnReloadMode,setLoading}}>
+        <ModeContext.Provider value={{Mode,Result,Loading,setResult,ToggleMode,OnReloadMode,setLoading,API_KEY}}>
             {props.children}
         </ModeContext.Provider>
     )

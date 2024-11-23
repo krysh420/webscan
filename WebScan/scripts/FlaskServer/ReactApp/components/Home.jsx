@@ -8,8 +8,9 @@ import ModeContext from '../context/modeContext'
 const Home = () => {
   const context = useContext(ModeContext)
   const {OnReloadMode} = context
+  
   useEffect(() => {
-    OnReloadMode()
+    OnReloadMode();
   }, [])
   return (
     <>

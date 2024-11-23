@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Link } from 'react-router-dom'
+import ModeContext from "../context/modeContext"
 
 
 export default function IndLogs(props) {
+    const context = useContext(ModeContext);
+    const  {API_KEY} = context;
     const [Display, setDisplay] = useState("hidden")
     const [Text, setText] = useState("View Fix")
     const [Logs, setLogs] = useState(null)
@@ -13,7 +16,6 @@ export default function IndLogs(props) {
             setLogs(props.array)
         }
     }, [])
-
     const filterByid = (id) => {
 
         if (Logs) {
@@ -29,7 +31,7 @@ export default function IndLogs(props) {
         if (Text === "View Fix") {
             const result = filterByid(id)
             if (result) {
-                const resp = await fetch(`https://www.googleapis.com/customsearch/v1?key=AIzaSyBmoeRkLZTNhzoyLW8bCMZ_eJKhlWaw8b0&cx=e72555cfa1c7e46ee&q=${result}`)
+                const resp = await fetch(`https://www.googleapis.com/customsearch/v1?key=${API_KEY!==""?API_KEY:""}&cx=e72555cfa1c7e46ee&q=${result}`)
                 const data = await resp.json()
                 setLinks(data.items)
                 setDisplay("block")
