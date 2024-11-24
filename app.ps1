@@ -13,3 +13,13 @@ Start-Process npm -ArgumentList 'run', 'dev'
 
 Pop-location
 deactivate
+
+$folderPath = "E:\Projects\WebScan\WebScan\scripts\FlaskServer\ReactApp"
+
+if (Test-Path -Path $folderPath -PathType Container) {
+    Write-Host "The folder exists."
+} else {
+    Write-Host "The folder does not exist."
+}
+
+
