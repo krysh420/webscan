@@ -8,6 +8,9 @@ from os import system, popen
 import os
 from platform import system as os_check # Gave an alias so it doesn't interfere with system from os module. It only has one use in this program
 
+# Alternative to os.system() in some cases
+from subprocess import run, CalledProcessError
+
 # To timestamp last setup
 from datetime import datetime
 
@@ -120,6 +123,17 @@ Some Linux distros now also manage packages externally, for those, you can eithe
         else:
             print(RED + "Enter a valid option.\n" + RESET)
 
+# Installing Node modules
+    print(MAGENTA + "Installing Node Modules" + RESET)
+    PATH_TO_REACT = Path('FlaskServer/ReactApp/')
+    try:
+        run(['npm', 'install'], cwd=PATH_TO_REACT, check=True)
+        print("npm install completed successfully.")
+    except FileNotFoundError:
+        print("Error: Directory does not exist or 'npm' is not installed.")
+    except CalledProcessError as e:
+        print(f"npm install failed with exit code {e.returncode}.")
+
 # Building kali image with nikto.
     print(f"{MAGENTA}Building {ENGINE.title()} image....{RESET}")
     while True:
@@ -149,7 +163,7 @@ Get an API Key and enter it here.{RESET}""").strip()
         print(BRIGHT_GREEN + "\nAll requirements have been successfully installed.\n" + RESET)
         print(MAGENTA + "Creating up config file...." + RESET)
         config_file() # Generating config file           
-        print(BRIGHT_YELLOW + "\nApp is now ready to use. You can run 'test.py' to make sure everything is running \n" + RESET)
+        print(BRIGHT_YELLOW + "\nApp is now ready to use. To run the app, use app.sh\n" + RESET)
 
 
 def update_full(): # Update entire project 

@@ -1,5 +1,5 @@
 Write-Output "Activating virtual environment......"
-& "WebScan\WebScan\bin\Activate.ps1"
+& "WebScan\.env\bin\Activate.ps1"
 
 Set-Location -Path "WebScan"
 Push-Location

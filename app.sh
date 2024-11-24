@@ -1,7 +1,5 @@
 #!/bin/bash
 echo Activating virtual environment......
-source WebScan/WebScan/bin/activate
-cd WebScan/scripts/FlaskServer
-python3 api.py
-cd ../..
-deactivate             
+cd WebScan
+source .env/bin/activate && cd scripts/FlaskServer && python3 api.py & cd scripts/FlaskServer/ReactApp && npm run dev && deactivate
+cd ../../../../
