@@ -11,6 +11,9 @@ from platform import system as os_check # Gave an alias so it doesn't interfere 
 # To timestamp last setup
 from datetime import datetime
 
+# Alternative to os.system() in some cases
+from subprocess import run, CalledProcessError
+
 # To check presence of configuration file
 from pathlib import Path
 
@@ -119,6 +122,17 @@ Some Linux distros now also manage packages externally, for those, you can eithe
             quit()
         else:
             print(RED + "Enter a valid option.\n" + RESET)
+
+# Installing Node modules
+    print(MAGENTA + "Installing Node Modules" + RESET)
+    PATH_TO_REACT = Path('FlaskServer/ReactApp/')
+    try:
+        run(['npm', 'install'], cwd=PATH_TO_REACT, check=True)
+        print("npm install completed successfully.")
+    except FileNotFoundError:
+        print("Error: Directory does not exist or 'npm' is not installed.")
+    except CalledProcessError as e:
+        print(f"npm install failed with exit code {e.returncode}.")
 
 # Building kali image with nikto.
     print(f"{MAGENTA}Building {ENGINE.title()} image....{RESET}")
