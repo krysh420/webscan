@@ -122,6 +122,15 @@ Some Linux distros now also manage packages externally, for those, you can eithe
         else:
             print(RED + "Enter a valid option.\n" + RESET)
 
+    if PLATFORM.lower() != "windows":
+        PATH_TO_REACT_APP = Path('FlaskServer/ReactApp/')
+        try:
+            run(['npm', 'install'], cwd=PATH_TO_REACT_APP, check=True)
+            print("npm install completed successfully.")
+        except FileNotFoundError:
+            print("Error: Directory does not exist or 'npm' is not installed.")
+        except CalledProcessError as e:
+            print(f"npm install failed with exit code {e.returncode}.")
 
 # Building kali image with nikto.
     print(f"{MAGENTA}Building {ENGINE.title()} image....{RESET}")
