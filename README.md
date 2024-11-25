@@ -15,6 +15,7 @@ WebScan is a Python and React based GUI wrapper for Nikto. It is powered by Dock
 - Python 3.10+
 - Docker or Podman
 - NodeJS
+- Virtualisation enabled (from the BIOS)
 - Google Search API key: [CHECK IMPORTANT NOTE]
 
 ## How to Run:
