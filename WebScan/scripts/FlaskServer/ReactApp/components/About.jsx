@@ -36,6 +36,14 @@ export default function About() {
           <br />
           <br />
           This tool is not built or maintained by any company, but by BTech Undergrads, from New Delhi (India).
+          <br />
+          <br />
+          <br />
+          Reach out to us at:.
+          <div className="contact flex items-center space-x-3">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0bGEl9v47XieEtHyj0TqTr1tOXJmib-KHtw&s" alt="LinkedIn" className="h-10 my-2"/>
+          <p>Gaurav Joshi | Krish Mishra | Vaibhav Kathait</p>
+          </div>
         </div>
         <div className="footer mx-[-32px] sm:mx-[-80px] max-[522px]:mt-40 max-[416px]:mt-[90vh] max-[292px]:mt-[120vh] mb-[-16px]"><Footer /></div>
       </div>
